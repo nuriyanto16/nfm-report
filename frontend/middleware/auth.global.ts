@@ -4,6 +4,8 @@
 // Peta path -> menu key. Path yang tak terdaftar (mis. /profil) bebas diakses
 // selama sudah login.
 const ROUTE_MENU: Record<string, string> = {
+  "/": "dashboard",
+  "/dashboard": "dashboard",
   "/harian": "harian",
   "/mingguan": "mingguan",
   "/bulanan": "bulanan",
@@ -20,8 +22,9 @@ export default defineNuxtRouteMiddleware((to) => {
     .split(",").map((s) => s.trim()).filter(Boolean);
 
   const firstAllowed = () => {
+    if (menus.includes("dashboard")) return "/";
     for (const [path, key] of Object.entries(ROUTE_MENU)) {
-      if (menus.includes(key)) return path;
+      if (path !== "/" && path !== "/dashboard" && menus.includes(key)) return path;
     }
     return "/profil"; // fallback: user tanpa menu apa pun tetap bisa ganti password
   };
@@ -31,9 +34,6 @@ export default defineNuxtRouteMiddleware((to) => {
     return;
   }
   if (!token) return navigateTo("/login");
-
-  // Root -> arahkan ke halaman pertama yang boleh.
-  if (to.path === "/") return navigateTo(firstAllowed());
 
   // Cek akses menu untuk path yang dilindungi.
   const needed = ROUTE_MENU[to.path];
