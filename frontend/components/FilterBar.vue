@@ -9,8 +9,12 @@ const props = defineProps<{
 const emit = defineEmits<{ (e: "toggle", dim: string, value: string): void; (e: "reset"): void }>();
 
 const LABELS: Record<string, string> = {
-  status: "Status", aplikasi: "Aplikasi", pic: "PIC",
-  kategori: "Kategori", priority: "Priority", status_deploy: "Status Deploy",
+  status: "⚡ Status",
+  aplikasi: "📱 Aplikasi",
+  pic: "👤 PIC",
+  kategori: "🏷️ Kategori",
+  priority: "🔥 Priority",
+  status_deploy: "🌐 Status Deploy",
 };
 
 function isOn(dim: string, v: string) {
@@ -26,11 +30,11 @@ const totalSelected = computed(() =>
   <div class="panel filter-panel">
     <div class="row-between filter-head">
       <h2>
-        Filter Dinamis
+        ⚙️ Filter Dinamis Laporan
         <span v-if="totalSelected" class="filter-count">{{ totalSelected }} aktif</span>
       </h2>
       <button class="btn secondary" :disabled="!totalSelected" @click="emit('reset')">
-        Reset Filter
+        ↺ Reset Filter
       </button>
     </div>
 

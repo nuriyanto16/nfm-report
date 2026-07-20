@@ -3,6 +3,8 @@ import { computed } from "vue";
 
 const props = defineProps<{
   page?: "harian" | "mingguan" | "bulanan" | "monitoring" | "project" | "evaluasi" | "sumber" | "users" | "profil" | "daily" | "weekly" | "monthly";
+  activeFiltersCount?: number;
+  summaryStats?: { total: number; done: number; progress: number; hold: number };
 }>();
 
 const route = useRoute();
@@ -24,7 +26,7 @@ const activePage = computed(() => {
     else p = "harian";
   }
 
-  // Normalize English period names to Indonesian to match the switch cases
+  // Normalize English period names to Indonesian
   if (p === "daily") return "harian";
   if (p === "weekly") return "mingguan";
   if (p === "monthly") return "bulanan";
@@ -77,7 +79,7 @@ const content = computed(() => {
         desc: "Analisis performa tim, jumlah task per PIC, serta distribusi status proyek secara visual.",
         tips: [
           "Tabel per-PIC diurutkan secara otomatis dari total beban tugas terbanyak ke terkecil.",
-          "Pantau status 'Hold' secara intensif agar tidak menimbulkan hambatan (bottleneck) pada timeline utama.",
+          "Pantau status 'Hold' secara intensif agar tidak menimbulkan hambatan pada timeline utama.",
           "Gunakan filter semua waktu untuk reviu historis beban kerja tim sejak awal tahun."
         ],
         showLegend: true
@@ -168,6 +170,37 @@ const content = computed(() => {
 
     <div class="rail-divider" />
 
+    <!-- Dynamic Live Summary Widget -->
+    <div v-if="summaryStats" class="rail-section live-stats-box">
+      <h4 class="rail-sub-title">⚡ Metric Ringkas</h4>
+      <div class="mini-kpi-grid">
+        <div class="mini-kpi">
+          <span>Total</span>
+          <strong>{{ summaryStats.total }}</strong>
+        </div>
+        <div class="mini-kpi green">
+          <span>Done</span>
+          <strong>{{ summaryStats.done }}</strong>
+        </div>
+        <div class="mini-kpi cyan">
+          <span>Progress</span>
+          <strong>{{ summaryStats.progress }}</strong>
+        </div>
+        <div class="mini-kpi red">
+          <span>Hold</span>
+          <strong>{{ summaryStats.hold }}</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dynamic Active Filter Indicator Widget -->
+    <div v-if="activeFiltersCount" class="rail-section active-filter-box">
+      <div class="active-filter-badge">
+        <span>🔍 Filter Aktif</span>
+        <span class="count-tag">{{ activeFiltersCount }} Dimensi</span>
+      </div>
+    </div>
+
     <div class="rail-section">
       <p class="rail-desc">{{ content.desc }}</p>
     </div>
@@ -218,6 +251,21 @@ const content = computed(() => {
       </div>
     </div>
 
+    <!-- System Status Box -->
+    <div class="rail-section sys-box">
+      <h4 class="rail-sub-title">🛡️ Status Sistem</h4>
+      <div class="sys-status-list">
+        <div class="sys-item">
+          <span class="sys-dot live" />
+          <span>Live Data Sync</span>
+        </div>
+        <div class="sys-item">
+          <span class="sys-dot ok" />
+          <span>Fast Export Ready</span>
+        </div>
+      </div>
+    </div>
+
     <div class="rail-footer">
       <span>FAST REPORT v1.1.0</span>
       <span>MULTI-PROJECT REPORT</span>
@@ -234,7 +282,7 @@ const content = computed(() => {
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
   position: sticky;
   top: 88px;
   max-height: calc(100vh - 110px);
@@ -286,6 +334,54 @@ const content = computed(() => {
   background: linear-gradient(90deg, rgba(56, 189, 248, 0.3) 0%, rgba(56, 189, 248, 0.05) 100%);
 }
 
+.live-stats-box {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 10px;
+  padding: 12px;
+}
+.mini-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 6px;
+}
+.mini-kpi {
+  background: #0f172a;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 6px;
+  padding: 6px 10px;
+  display: flex;
+  flex-direction: column;
+}
+.mini-kpi span { font-size: 10px; color: var(--text-dim, #94a3b8); font-weight: 600; text-transform: uppercase; }
+.mini-kpi strong { font-size: 16px; color: #ffffff; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif; }
+.mini-kpi.green strong { color: #22c55e; }
+.mini-kpi.cyan strong { color: #38bdf8; }
+.mini-kpi.red strong { color: #f87171; }
+
+.active-filter-box {
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+.active-filter-badge {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--cyan, #38bdf8);
+}
+.count-tag {
+  background: var(--cyan, #38bdf8);
+  color: #0a0e17;
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
 .rail-desc {
   margin: 0;
   font-size: 12.5px;
@@ -294,7 +390,7 @@ const content = computed(() => {
 }
 
 .rail-sub-title {
-  margin: 0 0 10px 0;
+  margin: 0 0 8px 0;
   font-size: 11.5px;
   font-weight: 700;
   color: var(--cyan, #38bdf8);
@@ -308,7 +404,7 @@ const content = computed(() => {
   padding: 0 0 0 16px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .rail-tips-list li {
@@ -366,6 +462,33 @@ const content = computed(() => {
   border-radius: var(--radius-sm, 9px);
   border-left: 3px solid var(--cyan, #38bdf8);
 }
+
+.sys-box {
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  padding: 10px;
+}
+.sys-status-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.sys-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  color: var(--text-sub, #cbd5e1);
+  font-weight: 500;
+}
+.sys-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.sys-dot.live { background: #22c55e; box-shadow: 0 0 6px #22c55e; }
+.sys-dot.ok { background: #38bdf8; box-shadow: 0 0 6px #38bdf8; }
 
 .rail-footer {
   margin-top: auto;

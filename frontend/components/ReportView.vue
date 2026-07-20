@@ -53,6 +53,40 @@ const years = computed(() => {
   for (let y = cy + 1; y >= 2024; y--) out.push(y);
   return out;
 });
+
+// Quick Presets
+function setToday() {
+  r.date.value = new Date().toISOString().slice(0, 10);
+}
+function setThisMonday() {
+  const d = new Date();
+  const day = d.getDay();
+  const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+  const mon = new Date(d.setDate(diff));
+  r.weekStart.value = mon.toISOString().slice(0, 10);
+}
+function setThisMonth() {
+  const now = new Date();
+  monthNum.value = now.getMonth() + 1;
+  yearNum.value = now.getFullYear();
+}
+
+// Stats & filter counts for InfoRail
+const activeFiltersCount = computed(() => {
+  return r.FILTER_DIMS.reduce((n, d) => n + (r.selected[d]?.length || 0), 0);
+});
+
+const summaryStats = computed(() => {
+  if (!r.data.value?.summary) return undefined;
+  const s = r.data.value.summary;
+  const bs = s.by_status || {};
+  return {
+    total: s.total || 0,
+    done: bs["Done"] || 0,
+    progress: bs["Progress"] || 0,
+    hold: bs["Hold"] || 0,
+  };
+});
 </script>
 
 <template>
@@ -67,8 +101,16 @@ const years = computed(() => {
     <template v-else>
       <div class="page-grid">
         <div class="page-body">
-          <div class="panel">
-            <div class="panel-title"><span class="dot" />Parameter Laporan</div>
+          <div class="panel param-panel">
+            <div class="row-between param-head">
+              <div class="panel-title"><span class="dot" />Parameter Utama Laporan</div>
+              <div class="preset-btns">
+                <button v-if="period === 'daily'" class="preset-btn" @click="setToday">📅 Hari Ini</button>
+                <button v-else-if="period === 'weekly'" class="preset-btn" @click="setThisMonday">🗓️ Senin Ini</button>
+                <button v-else class="preset-btn" @click="setThisMonth">📆 Bulan Ini</button>
+              </div>
+            </div>
+
             <div class="controls">
               <div class="field">
                 <label>📂 Sumber Data</label>
@@ -164,9 +206,41 @@ const years = computed(() => {
         </div>
 
         <aside class="page-rail">
-          <InfoRail :page="period" />
+          <InfoRail
+            :page="period"
+            :activeFiltersCount="activeFiltersCount"
+            :summaryStats="summaryStats"
+          />
         </aside>
       </div>
     </template>
   </div>
 </template>
+
+<style scoped>
+.param-panel {
+  border-left: 3px solid var(--cyan, #38bdf8);
+}
+.param-head {
+  margin-bottom: 14px;
+}
+.preset-btns {
+  display: flex;
+  gap: 8px;
+}
+.preset-btn {
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: var(--cyan, #38bdf8);
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all .18s;
+}
+.preset-btn:hover {
+  background: var(--cyan, #38bdf8);
+  color: #0a0e17;
+}
+</style>
