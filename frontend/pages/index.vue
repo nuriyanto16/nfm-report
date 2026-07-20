@@ -561,7 +561,7 @@ const hoveredStatus = ref<string | null>(null);
   justify-content: space-between;
   align-items: flex-end;
   background: linear-gradient(135deg, rgba(56, 189, 248, 0.14), rgba(99, 102, 241, 0.09));
-  border: 1px solid rgba(56, 189, 248, 0.35);
+  border: 1px solid var(--border-soft);
   border-radius: var(--radius, 14px);
   padding: 28px 32px;
   box-shadow: var(--shadow-sm);
@@ -572,17 +572,17 @@ const hoveredStatus = ref<string | null>(null);
   margin: 8px 0 4px;
   font-size: 24px;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--text);
   font-family: 'Outfit', sans-serif;
 }
 .dash-head-text p {
   margin: 0;
-  color: var(--text-sub, #cbd5e1);
+  color: var(--text-sub);
   font-size: 14px;
 }
 .dash-badge {
   display: inline-block;
-  background: var(--cyan, #38bdf8);
+  background: var(--cyan);
   color: #0a0e17;
   font-size: 10px;
   font-weight: 800;
@@ -596,13 +596,17 @@ const hoveredStatus = ref<string | null>(null);
   align-items: flex-end;
   gap: 14px;
 }
+.dash-actions label {
+  color: var(--cyan);
+  font-weight: 700;
+}
 .btn-refresh {
   height: 40px;
   padding: 0 18px;
-  background: #0f172a;
-  border: 1px solid rgba(56, 189, 248, 0.3);
+  background: var(--bg-3);
+  border: 1px solid var(--border-soft);
   border-radius: var(--radius-sm, 9px);
-  color: var(--cyan, #38bdf8);
+  color: var(--cyan);
   font-weight: 700;
   font-size: 13px;
   cursor: pointer;
@@ -612,8 +616,8 @@ const hoveredStatus = ref<string | null>(null);
   transition: all .18s;
 }
 .btn-refresh:hover:not(:disabled) {
-  background: rgba(56, 189, 248, 0.15);
-  border-color: var(--cyan, #38bdf8);
+  background: var(--cyan-glass);
+  border-color: var(--cyan);
 }
 .spinning {
   display: inline-block;
@@ -631,12 +635,12 @@ const hoveredStatus = ref<string | null>(null);
 }
 .skel-panel {
   padding: 24px;
-  background: var(--panel, #1e293b);
-  border: 1px solid var(--border-soft, rgba(56, 189, 248, 0.15));
+  background: var(--panel);
+  border: 1px solid var(--border-soft);
   border-radius: var(--radius, 14px);
 }
 .skel {
-  background: linear-gradient(90deg, rgba(30, 41, 59, 0.6) 25%, rgba(56, 189, 248, 0.14) 50%, rgba(30, 41, 59, 0.6) 75%);
+  background: linear-gradient(90deg, var(--bg-2) 25%, var(--cyan-glass) 50%, var(--bg-2) 75%);
   background-size: 200% 100%;
   animation: skelPulse 1.5s infinite ease-in-out;
   border-radius: 6px;
@@ -668,7 +672,7 @@ const hoveredStatus = ref<string | null>(null);
 
 .skel-table { display: flex; flex-direction: column; gap: 8px; }
 .skel-row { height: 36px; border-radius: 8px; }
-.skel-row.head { height: 40px; background: rgba(56, 189, 248, 0.15); }
+.skel-row.head { height: 40px; background: var(--cyan-glass); }
 
 /* Top KPI Grid */
 .dash-kpi-grid {
@@ -677,8 +681,8 @@ const hoveredStatus = ref<string | null>(null);
   gap: 16px;
 }
 .kpi-card {
-  background: var(--panel, #1e293b);
-  border: 1px solid var(--border, rgba(56, 189, 248, 0.28));
+  background: var(--panel);
+  border: 1px solid var(--border);
   border-radius: var(--radius, 14px);
   padding: 20px;
   display: flex;
@@ -690,14 +694,14 @@ const hoveredStatus = ref<string | null>(null);
 .kpi-card:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-md);
-  border-color: var(--border-glow, rgba(56, 189, 248, 0.45));
+  border-color: var(--border-glow);
 }
 .kpi-icon {
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: rgba(56, 189, 248, 0.12);
-  border: 1px solid rgba(56, 189, 248, 0.25);
+  background: var(--cyan-glass);
+  border: 1px solid var(--border-soft);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -713,25 +717,25 @@ const hoveredStatus = ref<string | null>(null);
 .kpi-label {
   font-size: 10.5px;
   font-weight: 700;
-  color: var(--cyan, #38bdf8);
+  color: var(--cyan);
   letter-spacing: 0.06em;
 }
 .kpi-value {
   font-size: 28px;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--text);
   line-height: 1.1;
   margin: 4px 0;
   font-family: 'Outfit', sans-serif;
 }
 .kpi-sub {
   font-size: 11px;
-  color: var(--text-dim, #94a3b8);
+  color: var(--text-dim);
   font-weight: 500;
 }
 .kpi-progress-bar {
   height: 4px;
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--bg-2);
   border-radius: 999px;
   overflow: hidden;
   margin-top: 6px;
@@ -739,7 +743,7 @@ const hoveredStatus = ref<string | null>(null);
 .kpi-progress-bar span {
   display: block;
   height: 100%;
-  background: var(--cyan, #38bdf8);
+  background: var(--cyan);
   box-shadow: 0 0 8px var(--cyan);
   transition: width .6s ease;
 }
@@ -766,7 +770,7 @@ const hoveredStatus = ref<string | null>(null);
   margin: 0;
   font-size: 16px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text);
   font-family: 'Outfit', sans-serif;
   display: flex;
   align-items: center;
@@ -774,7 +778,7 @@ const hoveredStatus = ref<string | null>(null);
 }
 .panel-sub {
   font-size: 12px;
-  color: var(--text-sub, #cbd5e1);
+  color: var(--text-sub);
   display: block;
   margin-top: 2px;
 }
@@ -819,12 +823,12 @@ const hoveredStatus = ref<string | null>(null);
 .center-num {
   font-size: 26px;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--text);
   line-height: 1;
 }
 .center-label {
   font-size: 11px;
-  color: var(--text-sub, #cbd5e1);
+  color: var(--text-sub);
   font-weight: 600;
 }
 
@@ -842,14 +846,14 @@ const hoveredStatus = ref<string | null>(null);
   gap: 10px;
   padding: 8px 12px;
   border-radius: 8px;
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid transparent;
+  background: var(--bg-2);
+  border: 1px solid var(--border-soft);
   transition: all .18s;
   cursor: pointer;
 }
 .legend-row:hover, .legend-row.active {
-  background: rgba(56, 189, 248, 0.12);
-  border-color: rgba(56, 189, 248, 0.3);
+  background: var(--cyan-glass);
+  border-color: var(--cyan);
 }
 .leg-dot {
   width: 10px;
@@ -860,17 +864,17 @@ const hoveredStatus = ref<string | null>(null);
 .leg-name {
   font-size: 12.5px;
   font-weight: 600;
-  color: #f1f5f9;
+  color: var(--text);
   flex: 1;
 }
 .leg-val {
   font-size: 13px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text);
 }
 .leg-pct {
   font-size: 11px;
-  color: var(--cyan, #38bdf8);
+  color: var(--cyan);
   font-weight: 700;
   min-width: 36px;
   text-align: right;
@@ -883,8 +887,8 @@ const hoveredStatus = ref<string | null>(null);
   gap: 12px;
 }
 .app-card-item {
-  background: #0f172a;
-  border: 1px solid rgba(56, 189, 248, 0.2);
+  background: var(--bg-2);
+  border: 1px solid var(--border-soft);
   border-radius: 10px;
   padding: 12px 16px;
 }
@@ -894,11 +898,11 @@ const hoveredStatus = ref<string | null>(null);
   font-size: 13px;
   margin-bottom: 8px;
 }
-.app-card-head strong { color: #f1f5f9; }
+.app-card-head strong { color: var(--text); }
 .app-badge { font-size: 11px; color: var(--cyan); font-weight: 700; }
 .app-progress {
   height: 6px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--bg-3);
   border-radius: 999px;
   overflow: hidden;
 }
@@ -937,14 +941,14 @@ const hoveredStatus = ref<string | null>(null);
   overflow-y: auto;
   padding-right: 4px;
   scrollbar-width: thin;
-  scrollbar-color: rgba(56, 189, 248, 0.3) transparent;
+  scrollbar-color: var(--border) transparent;
 }
 .pic-cards-column::-webkit-scrollbar { width: 4px; }
-.pic-cards-column::-webkit-scrollbar-thumb { background: rgba(56, 189, 248, 0.3); border-radius: 4px; }
+.pic-cards-column::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 
 .pic-exec-card {
-  background: rgba(15, 23, 42, 0.75);
-  border: 1px solid rgba(56, 189, 248, 0.25);
+  background: var(--bg-2);
+  border: 1px solid var(--border-soft);
   border-radius: 12px;
   padding: 12px 14px;
   display: flex;
@@ -953,9 +957,9 @@ const hoveredStatus = ref<string | null>(null);
   transition: all .2s ease;
 }
 .pic-exec-card:hover {
-  border-color: rgba(56, 189, 248, 0.5);
+  border-color: var(--cyan);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+  box-shadow: var(--shadow-md);
 }
 
 .pic-card-top {
@@ -985,14 +989,14 @@ const hoveredStatus = ref<string | null>(null);
   margin: 0;
   font-size: 13.5px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .pic-task-count {
   font-size: 11px;
-  color: var(--text-dim, #94a3b8);
+  color: var(--text-dim);
 }
 
 .pic-status-pill {
@@ -1005,7 +1009,7 @@ const hoveredStatus = ref<string | null>(null);
   white-space: nowrap;
 }
 .perf-high { background: rgba(34, 197, 94, 0.18); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.35); }
-.perf-ok { background: rgba(56, 189, 248, 0.18); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35); }
+.perf-ok { background: rgba(56, 189, 248, 0.18); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.35); }
 .perf-warning { background: rgba(248, 113, 113, 0.18); color: #f87171; border: 1px solid rgba(248, 113, 113, 0.35); }
 
 .pic-card-mid {
@@ -1018,18 +1022,18 @@ const hoveredStatus = ref<string | null>(null);
   justify-content: space-between;
   align-items: center;
   font-size: 11px;
-  color: var(--text-sub, #cbd5e1);
+  color: var(--text-sub);
 }
 .pic-rate-row strong {
-  color: var(--cyan, #38bdf8);
+  color: var(--cyan);
   font-weight: 700;
 }
 .pic-progress-bar {
   height: 5px;
-  background: #0f172a;
+  background: var(--bg-3);
   border-radius: 999px;
   overflow: hidden;
-  border: 1px solid rgba(56, 189, 248, 0.15);
+  border: 1px solid var(--border-soft);
 }
 .bar-done {
   display: block;
@@ -1045,7 +1049,7 @@ const hoveredStatus = ref<string | null>(null);
   gap: 4px;
 }
 .mini-m {
-  background: #0f172a;
+  background: var(--bg-3);
   border: 1px solid var(--border-soft);
   border-radius: 6px;
   padding: 4px 4px;
@@ -1054,9 +1058,9 @@ const hoveredStatus = ref<string | null>(null);
   flex-direction: column;
 }
 .mini-m span { font-size: 9px; color: var(--text-dim); text-transform: uppercase; font-weight: 600; line-height: 1; }
-.mini-m strong { font-size: 12px; color: #ffffff; font-weight: 800; line-height: 1.2; }
+.mini-m strong { font-size: 12px; color: var(--text); font-weight: 800; line-height: 1.2; }
 .mini-m.green strong { color: #22c55e; }
-.mini-m.cyan strong { color: #38bdf8; }
+.mini-m.cyan strong { color: var(--cyan); }
 .mini-m.red strong { color: #f87171; }
 .mini-m.red.alert { background: rgba(248, 113, 113, 0.12); border-color: rgba(248, 113, 113, 0.3); }
 
@@ -1064,8 +1068,8 @@ const hoveredStatus = ref<string | null>(null);
 .pic-search-box {
   display: flex;
   align-items: center;
-  background: #0f172a;
-  border: 1px solid rgba(56, 189, 248, 0.3);
+  background: var(--bg-3);
+  border: 1px solid var(--border-soft);
   border-radius: var(--radius-sm, 9px);
   padding: 0 10px;
   width: 180px;
@@ -1073,15 +1077,15 @@ const hoveredStatus = ref<string | null>(null);
 .search-ico { color: var(--cyan); display: flex; align-items: center; }
 .pic-search-box input {
   border: none; outline: none; background: transparent;
-  padding: 6px 8px; font-size: 12px; color: #ffffff; width: 100%;
+  padding: 6px 8px; font-size: 12px; color: var(--text); width: 100%;
 }
 
 .pic-table-wrap {
-  border: 1px solid rgba(56, 189, 248, 0.2);
+  border: 1px solid var(--border-soft);
   border-radius: 10px;
   overflow-y: auto;
   max-height: 480px;
-  background: #0f172a;
+  background: var(--bg-3);
 }
 .pic-matrix-table { margin: 0; width: 100%; }
 .pic-name-cell {
@@ -1093,7 +1097,7 @@ const hoveredStatus = ref<string | null>(null);
   width: 24px;
   height: 24px;
   border-radius: 6px;
-  background: rgba(56, 189, 248, 0.15);
+  background: var(--cyan-glass);
   color: var(--cyan);
   font-size: 10px;
   font-weight: 800;
@@ -1101,7 +1105,7 @@ const hoveredStatus = ref<string | null>(null);
   align-items: center;
   justify-content: center;
 }
-.num-cell { font-size: 13px; font-weight: 800; color: #ffffff; }
+.num-cell { font-size: 13px; font-weight: 800; color: var(--text); }
 .badge.s-Hold.has-hold { background: rgba(248, 113, 113, 0.25); color: #f87171; border: 1px solid rgba(248, 113, 113, 0.4); }
 
 .rate-cell { min-width: 110px; }
@@ -1113,7 +1117,7 @@ const hoveredStatus = ref<string | null>(null);
 .rate-bar {
   flex: 1;
   height: 5px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--bg-2);
   border-radius: 999px;
   overflow: hidden;
 }
@@ -1122,7 +1126,7 @@ const hoveredStatus = ref<string | null>(null);
   height: 100%;
   background: #22c55e;
 }
-.rate-num { font-size: 11.5px; font-weight: 700; color: #ffffff; width: 32px; }
+.rate-num { font-size: 11.5px; font-weight: 700; color: var(--text); width: 32px; }
 
 .perf-badge {
   font-size: 9.5px;
