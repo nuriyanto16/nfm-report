@@ -350,114 +350,98 @@ const hoveredStatus = ref<string | null>(null);
       </div>
 
       <!-- ============================================================
-           EXECUTIVE MONITORING PER PIC (STRICT 2 COLUMNS DENSE HUB)
+           EXECUTIVE PIC MONITORING 2-COLUMN DUAL PANEL (1 BARIS SEJAJAR)
            ============================================================ -->
-      <div class="panel pic-monitoring-panel">
-        <div class="row-between pic-panel-head">
-          <div class="panel-head-group">
-            <h3><UiIcon name="users" :size="20" color="#38bdf8" /> Monitoring Performa &amp; Beban Kerja per PIC</h3>
-            <span class="panel-sub">Analisis produktivitas tim, penyelesaian tugas, dan status kendala tiap personel</span>
+      <div class="pic-dual-grid">
+        <!-- Kolom 1: Monitoring Performa & Beban Kerja per PIC (Cards) -->
+        <div class="panel pic-monitoring-panel">
+          <div class="panel-head">
+            <h3><UiIcon name="users" :size="18" color="#38bdf8" /> Monitoring Performa per PIC</h3>
+            <span class="panel-sub">Ringkasan produktivitas &amp; tingkat penyelesaian</span>
           </div>
 
-          <div class="pic-search-box">
-            <span class="search-ico"><UiIcon name="search" :size="14" /></span>
-            <input v-model="picSearch" type="text" placeholder="Cari nama PIC..." />
-          </div>
-        </div>
-
-        <!-- PIC Cards Grid (Strict 2 Equal Columns) -->
-        <div class="pic-cards-grid">
-          <div v-for="p in picDetailedData" :key="p.pic" class="pic-exec-card">
-            <!-- Left Block: Avatar & Name -->
-            <div class="pic-card-left">
-              <div class="pic-avatar-badge">{{ p.initials }}</div>
-              <div class="pic-identity">
-                <div class="pic-name-row">
+          <div class="pic-cards-column">
+            <div v-for="p in picDetailedData" :key="p.pic" class="pic-exec-card">
+              <div class="pic-card-top">
+                <div class="pic-avatar-badge">{{ p.initials }}</div>
+                <div class="pic-identity">
                   <h4>{{ p.pic }}</h4>
-                  <span class="pic-status-pill" :class="p.performanceClass">{{ p.performanceLabel }}</span>
+                  <span class="pic-task-count">{{ p.total }} Task Assigned</span>
                 </div>
-                <span class="pic-task-count">{{ p.total }} Total Task Assigned</span>
+                <span class="pic-status-pill" :class="p.performanceClass">{{ p.performanceLabel }}</span>
               </div>
-            </div>
 
-            <!-- Middle Block: Rate & Progress -->
-            <div class="pic-card-mid">
-              <div class="pic-rate-row">
-                <span>Solvability Rate</span>
-                <strong>{{ p.rate }}% Solved ({{ p.done }}/{{ p.total }})</strong>
+              <div class="pic-card-mid">
+                <div class="pic-rate-row">
+                  <span>Solvability</span>
+                  <strong>{{ p.rate }}% Solved ({{ p.done }}/{{ p.total }})</strong>
+                </div>
+                <div class="pic-progress-bar">
+                  <span class="bar-done" :style="{ width: p.rate + '%' }" />
+                </div>
               </div>
-              <div class="pic-progress-bar">
-                <span class="bar-done" :style="{ width: p.rate + '%' }" />
-              </div>
-            </div>
 
-            <!-- Right Block: 4 Mini Metrics (2x2) -->
-            <div class="pic-card-right">
               <div class="pic-mini-metrics">
-                <div class="mini-m green" title="Done">
-                  <span>Done</span>
-                  <strong>{{ p.done }}</strong>
-                </div>
-                <div class="mini-m cyan" title="Progress">
-                  <span>Prog</span>
-                  <strong>{{ p.progress }}</strong>
-                </div>
-                <div class="mini-m red" :class="{ alert: p.hold > 0 }" title="Hold">
-                  <span>Hold</span>
-                  <strong>{{ p.hold }}</strong>
-                </div>
-                <div class="mini-m slate" title="To Do / Backlog">
-                  <span>ToDo</span>
-                  <strong>{{ p.todo + p.backlog }}</strong>
-                </div>
+                <div class="mini-m green"><span>Done</span><strong>{{ p.done }}</strong></div>
+                <div class="mini-m cyan"><span>Prog</span><strong>{{ p.progress }}</strong></div>
+                <div class="mini-m red" :class="{ alert: p.hold > 0 }"><span>Hold</span><strong>{{ p.hold }}</strong></div>
+                <div class="mini-m slate"><span>ToDo</span><strong>{{ p.todo + p.backlog }}</strong></div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Detailed PIC Matrix Table -->
-        <div class="pic-table-wrap">
-          <div class="table-title">
-            <span>Matriks Performa Detail PIC</span>
+        <!-- Kolom 2: Matriks Performa Detail PIC (Table Matrix) -->
+        <div class="panel pic-matrix-panel">
+          <div class="row-between panel-head">
+            <div class="panel-head-group">
+              <h3><UiIcon name="sources" :size="18" color="#38bdf8" /> Matriks Performa Detail PIC</h3>
+              <span class="panel-sub">Tabel detail perolehan status &amp; performa tim</span>
+            </div>
+            <div class="pic-search-box">
+              <span class="search-ico"><UiIcon name="search" :size="14" /></span>
+              <input v-model="picSearch" type="text" placeholder="Cari PIC..." />
+            </div>
           </div>
-          <table class="report pic-matrix-table">
-            <thead>
-              <tr>
-                <th>PIC</th>
-                <th>Total Task</th>
-                <th>Done</th>
-                <th>Progress</th>
-                <th>Hold</th>
-                <th>To Do / Backlog</th>
-                <th>Penyelesaian (%)</th>
-                <th>Status Performa</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="p in picDetailedData" :key="p.pic">
-                <td class="pic-name-cell">
-                  <span class="mini-avatar">{{ p.initials }}</span>
-                  <strong>{{ p.pic }}</strong>
-                </td>
-                <td class="num-cell"><strong>{{ p.total }}</strong></td>
-                <td><span class="badge s-Done">{{ p.done }}</span></td>
-                <td><span class="badge s-Progress">{{ p.progress }}</span></td>
-                <td><span class="badge s-Hold" :class="{ 'has-hold': p.hold > 0 }">{{ p.hold }}</span></td>
-                <td><span class="badge s-ToDo">{{ p.todo + p.backlog }}</span></td>
-                <td class="rate-cell">
-                  <div class="rate-bar-wrap">
-                    <div class="rate-bar"><span :style="{ width: p.rate + '%' }" /></div>
-                    <span class="rate-num">{{ p.rate }}%</span>
-                  </div>
-                </td>
-                <td>
-                  <span class="perf-badge" :class="p.performanceClass">
-                    {{ p.performanceLabel }}
-                  </span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+
+          <div class="table-scroll pic-table-wrap">
+            <table class="report pic-matrix-table">
+              <thead>
+                <tr>
+                  <th>PIC</th>
+                  <th>Total</th>
+                  <th>Done</th>
+                  <th>Prog</th>
+                  <th>Hold</th>
+                  <th>Penyelesaian</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="p in picDetailedData" :key="p.pic">
+                  <td class="pic-name-cell">
+                    <span class="mini-avatar">{{ p.initials }}</span>
+                    <strong>{{ p.pic }}</strong>
+                  </td>
+                  <td class="num-cell"><strong>{{ p.total }}</strong></td>
+                  <td><span class="badge s-Done">{{ p.done }}</span></td>
+                  <td><span class="badge s-Progress">{{ p.progress }}</span></td>
+                  <td><span class="badge s-Hold" :class="{ 'has-hold': p.hold > 0 }">{{ p.hold }}</span></td>
+                  <td class="rate-cell">
+                    <div class="rate-bar-wrap">
+                      <div class="rate-bar"><span :style="{ width: p.rate + '%' }" /></div>
+                      <span class="rate-num">{{ p.rate }}%</span>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="perf-badge" :class="p.performanceClass">
+                      {{ p.performanceLabel }}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -820,104 +804,80 @@ const hoveredStatus = ref<string | null>(null);
 }
 
 /* ============================================================
-   EXECUTIVE PIC MONITORING PANEL STYLES (STRICT 2 COLUMNS DENSE HUB)
+   EXECUTIVE PIC MONITORING DUAL 2-COLUMN GRID (1 BARIS SEJAJAR)
    ============================================================ */
-.pic-monitoring-panel {
-  border-left: 3px solid var(--cyan, #38bdf8);
-  background: var(--panel, #1e293b);
-}
-.pic-panel-head {
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  gap: 14px;
-}
-.panel-head-group h3 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 800;
-  color: #ffffff;
-  font-family: 'Outfit', sans-serif;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.pic-search-box {
-  display: flex;
-  align-items: center;
-  background: #0f172a;
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  border-radius: var(--radius-sm, 9px);
-  padding: 0 12px;
-  width: 240px;
-}
-.search-ico { color: var(--cyan); display: flex; align-items: center; }
-.pic-search-box input {
-  border: none; outline: none; background: transparent;
-  padding: 8px 10px; font-size: 13px; color: #ffffff; width: 100%;
-}
-
-.pic-cards-grid {
+.pic-dual-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  margin-bottom: 24px;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 20px;
 }
-@media (max-width: 1100px) {
-  .pic-cards-grid {
+@media (max-width: 1180px) {
+  .pic-dual-grid {
     grid-template-columns: 1fr;
   }
 }
+
+.pic-monitoring-panel, .pic-matrix-panel {
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.pic-cards-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 480px;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(56, 189, 248, 0.3) transparent;
+}
+.pic-cards-column::-webkit-scrollbar { width: 4px; }
+.pic-cards-column::-webkit-scrollbar-thumb { background: rgba(56, 189, 248, 0.3); border-radius: 4px; }
 
 .pic-exec-card {
   background: rgba(15, 23, 42, 0.75);
   border: 1px solid rgba(56, 189, 248, 0.25);
   border-radius: 12px;
-  padding: 14px 16px;
-  display: grid;
-  grid-template-columns: 1.4fr 1.2fr 1fr;
-  align-items: center;
-  gap: 16px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   transition: all .2s ease;
 }
 .pic-exec-card:hover {
   border-color: rgba(56, 189, 248, 0.5);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
 }
 
-.pic-card-left {
+.pic-card-top {
   display: flex;
   align-items: center;
-  gap: 12px;
-  min-width: 0;
+  gap: 10px;
 }
 .pic-avatar-badge {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   background: linear-gradient(135deg, var(--cyan), var(--indigo));
   color: #ffffff;
   font-weight: 800;
-  font-size: 15px;
+  font-size: 13.5px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
 }
 .pic-identity {
   flex: 1;
   min-width: 0;
 }
-.pic-name-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.pic-name-row h4 {
+.pic-identity h4 {
   margin: 0;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 700;
   color: #ffffff;
   white-space: nowrap;
@@ -927,14 +887,12 @@ const hoveredStatus = ref<string | null>(null);
 .pic-task-count {
   font-size: 11px;
   color: var(--text-dim, #94a3b8);
-  display: block;
-  margin-top: 2px;
 }
 
 .pic-status-pill {
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 800;
-  padding: 3px 8px;
+  padding: 2px 8px;
   border-radius: 999px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -947,7 +905,7 @@ const hoveredStatus = ref<string | null>(null);
 .pic-card-mid {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 .pic-rate-row {
   display: flex;
@@ -961,7 +919,7 @@ const hoveredStatus = ref<string | null>(null);
   font-weight: 700;
 }
 .pic-progress-bar {
-  height: 6px;
+  height: 5px;
   background: #0f172a;
   border-radius: 999px;
   overflow: hidden;
@@ -975,25 +933,19 @@ const hoveredStatus = ref<string | null>(null);
   transition: width .5s ease;
 }
 
-.pic-card-right {
-  display: flex;
-  justify-content: flex-end;
-}
 .pic-mini-metrics {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 4px;
-  width: 100%;
 }
 .mini-m {
   background: #0f172a;
   border: 1px solid var(--border-soft);
   border-radius: 6px;
-  padding: 4px 6px;
+  padding: 4px 4px;
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 .mini-m span { font-size: 9px; color: var(--text-dim); text-transform: uppercase; font-weight: 600; line-height: 1; }
 .mini-m strong { font-size: 12px; color: #ffffff; font-weight: 800; line-height: 1.2; }
@@ -1003,52 +955,58 @@ const hoveredStatus = ref<string | null>(null);
 .mini-m.red.alert { background: rgba(248, 113, 113, 0.12); border-color: rgba(248, 113, 113, 0.3); }
 
 /* Table Matrix */
+.pic-search-box {
+  display: flex;
+  align-items: center;
+  background: #0f172a;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: var(--radius-sm, 9px);
+  padding: 0 10px;
+  width: 180px;
+}
+.search-ico { color: var(--cyan); display: flex; align-items: center; }
+.pic-search-box input {
+  border: none; outline: none; background: transparent;
+  padding: 6px 8px; font-size: 12px; color: #ffffff; width: 100%;
+}
+
 .pic-table-wrap {
   border: 1px solid rgba(56, 189, 248, 0.2);
   border-radius: 10px;
-  overflow: hidden;
+  overflow-y: auto;
+  max-height: 480px;
   background: #0f172a;
-}
-.table-title {
-  padding: 12px 16px;
-  background: rgba(30, 41, 59, 0.8);
-  border-bottom: 1px solid var(--border-soft);
-  font-size: 12.5px;
-  font-weight: 800;
-  color: var(--cyan);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
 }
 .pic-matrix-table { margin: 0; width: 100%; }
 .pic-name-cell {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 .mini-avatar {
-  width: 26px;
-  height: 26px;
-  border-radius: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
   background: rgba(56, 189, 248, 0.15);
   color: var(--cyan);
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.num-cell { font-size: 14px; font-weight: 800; color: #ffffff; }
+.num-cell { font-size: 13px; font-weight: 800; color: #ffffff; }
 .badge.s-Hold.has-hold { background: rgba(248, 113, 113, 0.25); color: #f87171; border: 1px solid rgba(248, 113, 113, 0.4); }
 
-.rate-cell { min-width: 140px; }
+.rate-cell { min-width: 110px; }
 .rate-bar-wrap {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 .rate-bar {
   flex: 1;
-  height: 6px;
+  height: 5px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 999px;
   overflow: hidden;
@@ -1058,12 +1016,12 @@ const hoveredStatus = ref<string | null>(null);
   height: 100%;
   background: #22c55e;
 }
-.rate-num { font-size: 12px; font-weight: 700; color: #ffffff; width: 36px; }
+.rate-num { font-size: 11.5px; font-weight: 700; color: #ffffff; width: 32px; }
 
 .perf-badge {
-  font-size: 10.5px;
+  font-size: 9.5px;
   font-weight: 800;
-  padding: 3px 8px;
+  padding: 2px 7px;
   border-radius: 999px;
 }
 </style>
