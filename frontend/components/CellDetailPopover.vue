@@ -82,7 +82,8 @@ function fmt(iso: string | null): string {
 <style scoped>
 .cdp-overlay {
   position: fixed; inset: 0; z-index: 200;
-  background: rgba(15, 23, 42, 0.45);
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
   display: flex; align-items: center; justify-content: center;
   padding: 24px;
 }
@@ -90,42 +91,52 @@ function fmt(iso: string | null): string {
   position: relative; z-index: 201; width: min(720px, 100%);
   max-height: min(680px, 85vh);
   display: flex; flex-direction: column;
-  overflow: hidden; background: var(--surface, #fff);
-  border: 1px solid var(--border, #dadce0); border-radius: 14px;
-  box-shadow: 0 20px 60px rgba(0,0,0,.28);
+  overflow: hidden;
+  background: #1e293b;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  color: #f1f5f9;
 }
 .cdp-head {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 20px; border-bottom: 1px solid var(--border, #dadce0);
-  font-size: 16px; flex-shrink: 0; background: var(--surface, #fff);
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+  font-size: 16px; flex-shrink: 0;
+  background: #0f172a;
+  color: #f1f5f9;
 }
 .cdp-close {
-  border: none; background: transparent; cursor: pointer; font-size: 16px;
-  color: var(--muted, #5f6368); line-height: 1; padding: 6px;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  background: #1e293b;
+  cursor: pointer; font-size: 14px;
+  color: #cbd5e1; line-height: 1; padding: 6px 12px;
   border-radius: 6px;
+  transition: all .15s ease;
 }
-.cdp-close:hover { color: var(--text, #202124); background: rgba(0,0,0,.05); }
-.cdp-body { padding: 8px 0; overflow-y: auto; }
-.cdp-empty { padding: 20px; color: var(--muted, #5f6368); font-size: 14px; }
+.cdp-close:hover { color: #38bdf8; border-color: #38bdf8; background: rgba(56, 189, 248, 0.15); }
+.cdp-body { padding: 8px 0; overflow-y: auto; background: #1e293b; }
+.cdp-empty { padding: 20px; color: #cbd5e1; font-size: 14px; }
 .cdp-row {
-  padding: 12px 20px; border-bottom: 1px solid rgba(0,0,0,.04);
+  padding: 14px 20px; border-bottom: 1px solid rgba(56, 189, 248, 0.12);
 }
 .cdp-row:last-child { border-bottom: none; }
+.cdp-row:hover { background: rgba(56, 189, 248, 0.06); }
 .cdp-row-head {
   display: flex; align-items: baseline; gap: 8px; font-size: 14px;
 }
-.cdp-no { font-weight: 700; color: var(--accent-600, #1a73e8); flex-shrink: 0; }
-.cdp-issue { color: var(--text, #202124); }
+.cdp-no { font-weight: 700; color: #38bdf8; flex-shrink: 0; }
+.cdp-issue { color: #f8fafc; font-weight: 500; }
 .cdp-row-meta {
   display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 6px;
-  font-size: 12px; color: var(--muted, #5f6368);
+  font-size: 12px; color: #cbd5e1;
 }
 .cdp-row-dates {
   display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 6px;
-  font-size: 12px; color: var(--text, #202124);
+  font-size: 12px; color: #e2e8f0;
 }
 .cdp-row-dates em, .cdp-row-meta em { font-style: normal; }
 .cdp-row-dates em {
-  color: var(--muted, #5f6368); margin-right: 3px;
+  color: #94a3b8; margin-right: 3px;
 }
 </style>

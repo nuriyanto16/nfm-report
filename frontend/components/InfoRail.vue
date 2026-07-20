@@ -227,17 +227,17 @@ const content = computed(() => {
 
 <style scoped>
 .info-rail-card {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  background: var(--panel, #161b22);
+  border: 1px solid var(--border, rgba(48, 66, 100, 0.55));
+  border-radius: var(--radius, 14px);
   padding: 24px;
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
   gap: 20px;
   position: sticky;
-  top: 92px; /* aligns below the topbar */
-  max-height: calc(100vh - 120px);
+  top: 88px;
+  max-height: calc(100vh - 110px);
   overflow-y: auto;
 }
 
@@ -250,10 +250,10 @@ const content = computed(() => {
 .rail-logo {
   width: 36px;
   height: 36px;
-  border-radius: var(--radius-sm);
-  background: var(--accent-light);
-  border: 1px solid var(--accent);
-  color: var(--accent);
+  border-radius: var(--radius-sm, 9px);
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: var(--cyan, #38bdf8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -269,39 +269,38 @@ const content = computed(() => {
   margin: 0;
   font-size: 15px;
   font-weight: 700;
-  color: var(--primary);
-  font-family: 'Sora', sans-serif;
+  color: var(--text, #f1f5f9);
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .rail-title-group span {
   font-size: 11px;
-  color: var(--accent);
-  font-weight: 600;
+  color: var(--cyan, #38bdf8);
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
 }
 
 .rail-divider {
   height: 1px;
-  background: linear-gradient(90deg, rgba(197, 160, 89, 0.3) 0%, rgba(197, 160, 89, 0.05) 100%);
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.3) 0%, rgba(56, 189, 248, 0.05) 100%);
 }
 
 .rail-desc {
   margin: 0;
   font-size: 12.5px;
   line-height: 1.6;
-  color: var(--text);
-  opacity: 0.85;
+  color: var(--text-sub, #cbd5e1);
 }
 
 .rail-sub-title {
   margin: 0 0 10px 0;
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 700;
-  color: var(--primary);
-  font-family: 'Sora', sans-serif;
+  color: var(--cyan, #38bdf8);
+  font-family: 'Plus Jakarta Sans', sans-serif;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
 }
 
 .rail-tips-list {
@@ -315,12 +314,11 @@ const content = computed(() => {
 .rail-tips-list li {
   font-size: 12px;
   line-height: 1.5;
-  color: var(--text);
-  opacity: 0.8;
+  color: var(--text-sub, #cbd5e1);
 }
 
 .rail-tips-list li::marker {
-  color: var(--accent);
+  color: var(--cyan, #38bdf8);
 }
 
 .rail-legend-grid {
@@ -333,9 +331,9 @@ const content = computed(() => {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 11.5px;
-  color: var(--text);
-  font-weight: 500;
+  font-size: 12px;
+  color: var(--text, #f1f5f9);
+  font-weight: 600;
 }
 
 .legend-dot {
@@ -345,11 +343,11 @@ const content = computed(() => {
   flex-shrink: 0;
 }
 
-.legend-dot.s-Done { background-color: #137333; }
-.legend-dot.s-Progress { background-color: #b06000; }
-.legend-dot.s-ToDo { background-color: #1a73e8; }
-.legend-dot.s-Hold { background-color: #c5221f; }
-.legend-dot.s-BackLog { background-color: #5f6368; }
+.legend-dot.s-Done { background-color: #22c55e; box-shadow: 0 0 6px rgba(34,197,94,0.4); }
+.legend-dot.s-Progress { background-color: #38bdf8; box-shadow: 0 0 6px rgba(56,189,248,0.4); }
+.legend-dot.s-ToDo { background-color: #f59e0b; box-shadow: 0 0 6px rgba(245,158,11,0.4); }
+.legend-dot.s-Hold { background-color: #f87171; box-shadow: 0 0 6px rgba(248,113,113,0.4); }
+.legend-dot.s-BackLog { background-color: #64748b; }
 
 .rail-extra-list {
   margin: 0;
@@ -362,21 +360,22 @@ const content = computed(() => {
 
 .rail-extra-list li {
   font-size: 11.5px;
-  color: var(--text);
+  color: var(--text-sub, #cbd5e1);
   padding: 6px 10px;
-  background: var(--border-soft);
-  border-radius: var(--radius-sm);
-  border-left: 3px solid var(--accent);
+  background: rgba(30, 41, 59, 0.6);
+  border-radius: var(--radius-sm, 9px);
+  border-left: 3px solid var(--cyan, #38bdf8);
 }
 
 .rail-footer {
   margin-top: auto;
   padding-top: 14px;
-  border-top: 1px solid var(--border-soft);
+  border-top: 1px solid var(--border-soft, rgba(48, 66, 100, 0.28));
   display: flex;
   justify-content: space-between;
   font-size: 10px;
-  color: var(--muted);
-  font-weight: 500;
+  color: var(--text-dim, #94a3b8);
+  font-weight: 600;
+  letter-spacing: 0.05em;
 }
 </style>

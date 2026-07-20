@@ -70,12 +70,13 @@ function openInNewTab() {
 
 <style scoped>
 .page-head { margin-bottom: 1rem; }
-.pg-title { margin: 0; font-size: 1.4rem; }
-.pg-sub { margin: .25rem 0 0; color: #64748b; font-size: .85rem; }
-.btn-ghost { background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; padding: .5rem .8rem; cursor: pointer; }
+.pg-title { margin: 0; font-size: 1.4rem; color: var(--text, #f1f5f9); }
+.pg-sub { margin: .25rem 0 0; color: var(--text-sub, #cbd5e1); font-size: .85rem; }
+.btn-ghost { background: var(--bg-2, #161b22); border: 1px solid var(--border, rgba(48, 66, 100, 0.55)); border-radius: 8px; padding: .5rem .8rem; color: var(--cyan, #38bdf8); font-weight: 600; cursor: pointer; transition: all .18s; }
+.btn-ghost:hover { background: rgba(56, 189, 248, 0.12); border-color: var(--cyan, #38bdf8); }
 .btn-ghost:disabled { opacity: .5; cursor: default; }
 .field-btn { display: flex; flex-direction: column; justify-content: flex-end; }
-.doc-title { align-self: flex-end; color: #334155; font-weight: 600; font-size: .85rem; margin-left: auto; max-width: 45ch; }
-.doc-loading { padding: 2rem; text-align: center; color: #64748b; }
-.doc-frame { width: 100%; height: calc(100vh - 230px); min-height: 520px; border: 1px solid #e2e8f0; border-radius: 12px; background: #fff; }
+.doc-title { align-self: flex-end; color: var(--cyan, #38bdf8); font-weight: 600; font-size: .85rem; margin-left: auto; max-width: 45ch; }
+.doc-loading { padding: 2rem; text-align: center; color: var(--text-sub, #cbd5e1); }
+.doc-frame { width: 100%; height: calc(100vh - 230px); min-height: 520px; border: 1px solid var(--border, rgba(48, 66, 100, 0.55)); border-radius: 12px; background: #fff; }
 </style>
