@@ -36,6 +36,7 @@ from typing import Dict, List, Optional
 # --- Katalog menu (satu-satunya sumber kebenaran, dikirim ke frontend) ---
 # key -> label tampilan
 MENUS: Dict[str, str] = {
+    "dashboard": "Dashboard Executive",
     "harian": "Laporan Harian",
     "mingguan": "Laporan Mingguan",
     "bulanan": "Laporan Bulanan",
@@ -64,9 +65,9 @@ DEFAULT_ROLES: Dict[str, Dict] = {
     "admin": {"label": "Administrator", "menus": _admin_menus()},
     "operator": {
         "label": "Operator",
-        "menus": ["harian", "mingguan", "bulanan", "monitoring"],
+        "menus": ["dashboard", "harian", "mingguan", "bulanan", "monitoring"],
     },
-    "viewer": {"label": "Viewer", "menus": ["harian", "mingguan", "bulanan"]},
+    "viewer": {"label": "Viewer", "menus": ["dashboard", "harian", "mingguan", "bulanan"]},
 }
 
 _PBKDF2_ROUNDS = 200_000

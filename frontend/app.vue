@@ -8,6 +8,12 @@ const collapsed = ref(false);
 // Menu dikelompokkan; tiap item difilter berdasarkan hak akses (menu key).
 const groups = [
   {
+    section: "DASHBOARD",
+    items: [
+      { to: "/", label: "Dashboard Executive", icon: "📊", key: "dashboard" },
+    ],
+  },
+  {
     section: "LAPORAN",
     items: [
       { to: "/harian", label: "Laporan Harian", icon: "📅", key: "harian" },
