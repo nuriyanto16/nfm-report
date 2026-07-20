@@ -34,13 +34,13 @@ async function onSubmit() {
     <section class="login2-left">
       <div class="login2-orbs"><span /><span /><span /></div>
       <div class="login2-brand">
-        <div class="login2-logo">📊</div>
+        <div class="login2-logo"><UiIcon name="logo" :size="32" color="#ffffff" /></div>
         <h1>FAST REPORT</h1>
         <p class="login2-tag">Penarikan Laporan dari Berbagai Sumber Data</p>
         <ul class="login2-feats">
           <li>🔌 Tarik data dari banyak sumber (multi-source)</li>
-          <li>📅 Laporan harian, mingguan & bulanan</li>
-          <li>🎯 Filter dinamis berdasarkan status & PIC</li>
+          <li>📅 Laporan harian, mingguan &amp; bulanan</li>
+          <li>🎯 Filter dinamis berdasarkan status &amp; PIC</li>
           <li>📥 Ekspor ke Excel, Word, dan PDF</li>
         </ul>
       </div>
@@ -51,7 +51,7 @@ async function onSubmit() {
     <section class="login2-right">
       <div class="login2-card">
         <div class="login2-card-head">
-          <div class="login2-logo sm">📊</div>
+          <div class="login2-logo sm"><UiIcon name="logo" :size="24" color="#ffffff" /></div>
           <h2>Selamat Datang 👋</h2>
           <p>Silakan masuk untuk mengakses dashboard laporan.</p>
         </div>

@@ -11,22 +11,19 @@ const props = defineProps<{
 }>();
 
 // Ikon + kelas warna per status kanonik.
-const STATUS_META: Record<string, { icon: string; cls: string }> = {
-  Done: { icon: "✅", cls: "m-green" },
-  Progress: { icon: "🔄", cls: "m-blue" },
-  Hold: { icon: "⏸️", cls: "m-red" },
-  "Back Log": { icon: "📋", cls: "m-slate" },
-  "To Do": { icon: "📝", cls: "m-amber" },
-  "Tanpa Status": { icon: "❔", cls: "m-slate" },
+const STATUS_META: Record<string, { iconName: string; cls: string }> = {
+  Done: { iconName: "check", cls: "m-green" },
+  Progress: { iconName: "clock", cls: "m-blue" },
+  Hold: { iconName: "filter", cls: "m-red" },
+  "Back Log": { iconName: "sources", cls: "m-slate" },
+  "To Do": { iconName: "evaluasi", cls: "m-amber" },
+  "Tanpa Status": { iconName: "dashboard", cls: "m-slate" },
 };
 function meta(s: string) {
-  return STATUS_META[s] || { icon: "▫️", cls: "m-slate" };
+  return STATUS_META[s] || { iconName: "dashboard", cls: "m-slate" };
 }
 
 const daily = computed(() => props.summary.daily);
-// Persentase solved (dari total Isu hari ini) untuk mini progress bar di
-// kartu hero. Dulu dibagi `total` (jumlah baris periode harian), tapi itu
-// bisa bikin persentase > 100%. Basisnya sekarang Isu.
 const solvedPct = computed(() => {
   const d = daily.value;
   if (!d || !d.isu) return 0;
@@ -39,7 +36,7 @@ const solvedPct = computed(() => {
     <!-- Kartu hero: Total -->
     <div class="metric metric-hero">
       <div class="metric-top">
-        <div class="metric-ico">📊</div>
+        <div class="metric-ico"><UiIcon name="dashboard" :size="20" color="#38bdf8" /></div>
         <span v-if="daily" class="metric-tag">{{ solvedPct }}% selesai</span>
       </div>
       <div class="metric-num">{{ summary.total }}</div>
@@ -52,27 +49,27 @@ const solvedPct = computed(() => {
     <!-- Mode harian: kartu Isu / Solved / PR / PR Solved / Carry Over -->
     <template v-if="daily">
       <div class="metric m-blue">
-        <div class="metric-top"><div class="metric-ico">🆕</div></div>
+        <div class="metric-top"><div class="metric-ico"><UiIcon name="monitoring" :size="20" color="#38bdf8" /></div></div>
         <div class="metric-num">{{ daily.isu }}</div>
         <div class="metric-lbl">Isu</div>
       </div>
       <div class="metric m-green">
-        <div class="metric-top"><div class="metric-ico">✅</div></div>
+        <div class="metric-top"><div class="metric-ico"><UiIcon name="check" :size="20" color="#22c55e" /></div></div>
         <div class="metric-num">{{ daily.solved }}</div>
         <div class="metric-lbl">Solved</div>
       </div>
       <div class="metric m-amber">
-        <div class="metric-top"><div class="metric-ico">📝</div></div>
+        <div class="metric-top"><div class="metric-ico"><UiIcon name="evaluasi" :size="20" color="#f59e0b" /></div></div>
         <div class="metric-num">{{ daily.pr }}</div>
         <div class="metric-lbl">PR</div>
       </div>
       <div class="metric m-slate" v-if="daily.pr_solved > 0">
-        <div class="metric-top"><div class="metric-ico">✔️</div></div>
+        <div class="metric-top"><div class="metric-ico"><UiIcon name="check" :size="20" color="#cbd5e1" /></div></div>
         <div class="metric-num">{{ daily.pr_solved }}</div>
         <div class="metric-lbl">PR Solved</div>
       </div>
       <div class="metric m-purple" v-if="daily.carry_over > 0">
-        <div class="metric-top"><div class="metric-ico">⏳</div></div>
+        <div class="metric-top"><div class="metric-ico"><UiIcon name="clock" :size="20" color="#a78bfa" /></div></div>
         <div class="metric-num">{{ daily.carry_over }}</div>
         <div class="metric-lbl">Carry Over <span class="metric-sub">of PR</span></div>
       </div>
@@ -84,7 +81,7 @@ const solvedPct = computed(() => {
         class="metric" :class="meta(status).cls"
         v-for="(count, status) in summary.by_status" :key="status"
       >
-        <div class="metric-top"><div class="metric-ico">{{ meta(status).icon }}</div></div>
+        <div class="metric-top"><div class="metric-ico"><UiIcon :name="meta(status).iconName" :size="20" /></div></div>
         <div class="metric-num">{{ count }}</div>
         <div class="metric-lbl">{{ status }}</div>
       </div>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 /* ============================================================
    DESIGN TOKENS — High-Contrast Dark Navy + Vivid Cyan Theme
@@ -46,7 +46,7 @@
 html, body { margin: 0; padding: 0; height: 100%; color-scheme: dark; }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   background-color: var(--bg);
   background-image:
     radial-gradient(ellipse 80% 50% at 20% -10%, rgba(56,189,248,.08), transparent),
@@ -61,8 +61,8 @@ body {
 
 a { color: inherit; text-decoration: none; }
 h1, h2, h3, h4, h5, h6, .topbar-title, .sb-brand-text strong {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  letter-spacing: -0.02em;
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -0.025em;
 }
 
 /* ---- Layout ---- */
