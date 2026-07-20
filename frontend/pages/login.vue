@@ -1,9 +1,16 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { useTheme } from "~/composables/useTheme";
 
 definePageMeta({ layout: false });
 
 const { login } = useAuth();
+const { theme, toggleTheme, initTheme } = useTheme();
+
+onMounted(() => {
+  initTheme();
+});
+
 const username = ref("");
 const password = ref("");
 const showPass = ref(false);
@@ -101,6 +108,15 @@ async function onSubmit() {
 
     <!-- Panel form kanan -->
     <section class="login2-right">
+      <!-- Theme Switcher Top Right -->
+      <div class="login-theme-bar">
+        <button class="theme-toggle-btn" @click="toggleTheme" :title="theme === 'dark' ? 'Ganti ke Mode Terang' : 'Ganti ke Mode Gelap'">
+          <UiIcon v-if="theme === 'dark'" name="sun" :size="16" color="#f59e0b" />
+          <UiIcon v-else name="moon" :size="16" color="#0284c7" />
+          <span class="theme-toggle-label">{{ theme === 'dark' ? 'Mode Terang' : 'Mode Gelap' }}</span>
+        </button>
+      </div>
+
       <div class="login2-card">
         <div class="login2-card-head">
           <div class="login2-logo sm">
@@ -150,3 +166,33 @@ async function onSubmit() {
     </section>
   </div>
 </template>
+
+<style scoped>
+.login-theme-bar {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 10;
+}
+.theme-toggle-btn {
+  background: var(--cyan-glass, rgba(56, 189, 248, 0.12));
+  border: 1px solid var(--border-soft, rgba(56, 189, 248, 0.3));
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all .2s ease;
+}
+.theme-toggle-btn:hover {
+  background: var(--border-glow, rgba(56, 189, 248, 0.25));
+  transform: translateY(-1px);
+}
+.login2-right {
+  position: relative;
+}
+</style>

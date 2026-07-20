@@ -1012,6 +1012,33 @@ table.report tr:hover .zoom-hint {
 [data-theme="light"] .rail-legend-item { color: #0f172a; }
 
 /* Login Light Mode */
+[data-theme="light"] .login2-left {
+  background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 40%, #e0e7ff 100%);
+  border-right-color: rgba(2, 132, 199, 0.2);
+}
+[data-theme="light"] .login2-orbs span {
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.15) 0%, transparent 70%);
+}
+[data-theme="light"] .brand-badge {
+  background: rgba(2, 132, 199, 0.12);
+  border-color: rgba(2, 132, 199, 0.3);
+  color: #0284c7;
+}
+[data-theme="light"] .logo-text h1 { color: #0f172a; }
+[data-theme="light"] .logo-sub { color: #0284c7; }
+[data-theme="light"] .login2-tag { color: #334155; }
+[data-theme="light"] .feat-card {
+  background: #ffffff;
+  border-color: rgba(2, 132, 199, 0.2);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+}
+[data-theme="light"] .feat-card:hover {
+  border-color: #0284c7;
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.15);
+}
+[data-theme="light"] .feat-text strong { color: #0f172a; }
+[data-theme="light"] .feat-text span { color: #64748b; }
+[data-theme="light"] .login2-instansi { color: #64748b; }
 [data-theme="light"] .login2-right { background: #f8fafc; }
 [data-theme="light"] .login2-card {
   background: #ffffff;
@@ -1020,8 +1047,10 @@ table.report tr:hover .zoom-hint {
 }
 [data-theme="light"] .login2-card-head h2 { color: #0f172a; }
 [data-theme="light"] .login2-card-head p { color: #475569; }
+[data-theme="light"] .login-field span { color: #0284c7; font-weight: 700; }
 [data-theme="light"] .login-input {
   background: #f8fafc;
   border-color: rgba(2, 132, 199, 0.25);
 }
 [data-theme="light"] .login-input input { color: #0f172a; }
+[data-theme="light"] .login2-foot span { color: #64748b; }
