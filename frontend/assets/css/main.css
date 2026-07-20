@@ -42,6 +42,28 @@
   --shadow-lg:      0 16px 48px rgba(0,0,0,.7), 0 0 0 1px rgba(56,189,248,.25);
 }
 
+[data-theme="light"] {
+  color-scheme: light;
+  --bg:             #f8fafc;
+  --bg-2:           #f1f5f9;
+  --bg-3:           #ffffff;
+  --panel:          #ffffff;
+  --panel-solid:    #ffffff;
+  --border:         rgba(2, 132, 199, 0.22);
+  --border-soft:    rgba(2, 132, 199, 0.14);
+  --border-glow:    rgba(2, 132, 199, 0.45);
+  --text:           #0f172a;
+  --text-sub:       #334155;
+  --text-dim:       #64748b;
+  --cyan:           #0284c7;
+  --cyan-dark:      #0369a1;
+  --cyan-glow:      rgba(2, 132, 199, 0.18);
+  --cyan-glass:     rgba(2, 132, 199, 0.08);
+  --shadow-sm:      0 2px 8px rgba(0,0,0,.04), 0 0 0 1px rgba(2,132,199,.15);
+  --shadow-md:      0 8px 24px rgba(0,0,0,.06), 0 0 0 1px rgba(2,132,199,.2);
+  --shadow-lg:      0 16px 48px rgba(0,0,0,.08), 0 0 0 1px rgba(2,132,199,.18);
+}
+
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; height: 100%; color-scheme: dark; }
 
@@ -774,3 +796,131 @@ td.act { white-space: nowrap; }
 table.report tr:hover .zoom-hint {
   opacity: 1;
 }
+
+/* ============================================================
+   LIGHT MODE OVERRIDES
+   ============================================================ */
+[data-theme="light"] body {
+  background-color: #f8fafc;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(2, 132, 199, 0.06), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(99, 102, 241, 0.05), transparent),
+    radial-gradient(ellipse 40% 30% at 60% 50%, rgba(2, 132, 199, 0.04), transparent);
+}
+
+[data-theme="light"] .sidebar {
+  background: #ffffff;
+  border-right-color: rgba(2, 132, 199, 0.15);
+}
+[data-theme="light"] .sb-brand {
+  border-bottom-color: rgba(2, 132, 199, 0.15);
+}
+[data-theme="light"] .sb-brand-text strong { color: #0f172a; }
+[data-theme="light"] .sb-link { color: #334155; }
+[data-theme="light"] .sb-link:hover, [data-theme="light"] .sb-link.router-link-active {
+  background: rgba(2, 132, 199, 0.08);
+  color: #0284c7;
+}
+
+[data-theme="light"] .topbar {
+  background: rgba(255, 255, 255, 0.85);
+  border-bottom-color: rgba(2, 132, 199, 0.15);
+}
+[data-theme="light"] .topbar-title { color: #0f172a; }
+[data-theme="light"] .collapse-btn {
+  background: #f1f5f9;
+  border-color: rgba(2, 132, 199, 0.2);
+  color: #0284c7;
+}
+
+[data-theme="light"] .panel {
+  background: #ffffff;
+  border-color: rgba(2, 132, 199, 0.18);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="light"] input, [data-theme="light"] select {
+  background: #ffffff;
+  color: #0f172a;
+  border-color: rgba(2, 132, 199, 0.25);
+}
+
+[data-theme="light"] table.report th {
+  background: #f1f5f9;
+  color: #0f172a;
+  border-bottom-color: rgba(2, 132, 199, 0.2);
+}
+[data-theme="light"] table.report tr:nth-child(even) {
+  background: #f8fafc;
+}
+[data-theme="light"] table.report tr:hover {
+  background: rgba(2, 132, 199, 0.04);
+}
+[data-theme="light"] table.report td {
+  border-bottom-color: rgba(2, 132, 199, 0.1);
+  color: #334155;
+}
+[data-theme="light"] table.report td strong {
+  color: #0f172a;
+}
+
+[data-theme="light"] .filter-group {
+  background: #f8fafc;
+  border-color: rgba(2, 132, 199, 0.15);
+}
+[data-theme="light"] .chip {
+  background: #f1f5f9;
+  color: #334155;
+  border-color: rgba(2, 132, 199, 0.2);
+}
+[data-theme="light"] .chip.on {
+  background: #0284c7;
+  color: #ffffff;
+}
+
+[data-theme="light"] .kpi-card {
+  background: #ffffff;
+  border-color: rgba(2, 132, 199, 0.2);
+}
+[data-theme="light"] .kpi-value { color: #0f172a; }
+[data-theme="light"] .panel-head h3 { color: #0f172a; }
+
+[data-theme="light"] .pic-exec-card {
+  background: #ffffff;
+  border-color: rgba(2, 132, 199, 0.2);
+}
+[data-theme="light"] .pic-identity h4 { color: #0f172a; }
+[data-theme="light"] .mini-m {
+  background: #f8fafc;
+  border-color: rgba(2, 132, 199, 0.15);
+}
+[data-theme="light"] .mini-m strong { color: #0f172a; }
+
+[data-theme="light"] .pic-table-wrap, [data-theme="light"] .app-card-item {
+  background: #ffffff;
+  border-color: rgba(2, 132, 199, 0.18);
+}
+[data-theme="light"] .table-title {
+  background: #f1f5f9;
+}
+[data-theme="light"] .num-cell strong { color: #0f172a; }
+[data-theme="light"] .rate-num { color: #0f172a; }
+
+[data-theme="light"] .legend-row {
+  background: #f8fafc;
+}
+[data-theme="light"] .leg-name { color: #0f172a; }
+[data-theme="light"] .leg-val { color: #0f172a; }
+
+[data-theme="light"] .login2-right { background: #f8fafc; }
+[data-theme="light"] .login2-card {
+  background: #ffffff;
+  border-color: rgba(2, 132, 199, 0.25);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
+}
+[data-theme="light"] .login2-card-head h2 { color: #0f172a; }
+[data-theme="light"] .login-input {
+  background: #f8fafc;
+  border-color: rgba(2, 132, 199, 0.25);
+}
+[data-theme="light"] .login-input input { color: #0f172a; }
