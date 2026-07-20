@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reviu TW II & Rencana TW III — Tim Nuriyanto | PT MST</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0D2B33;
+    --petrol:#155A66;
+    --petrol-soft:#E4EFEF;
+    --mist:#F4F8F7;
+    --paper:#FFFFFF;
+    --amber:#E8A33D;
+    --amber-soft:#FBF0DC;
+    --green:#2E8B6E;
+    --green-soft:#E3F2EC;
+    --red:#C4574A;
+    --red-soft:#F9E9E6;
+    --grey:#5E7378;
+    --line:#D8E4E3;
+    --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--mist);color:var(--ink);line-height:1.55}
+  h1,h2,h3{font-family:'Sora',system-ui,sans-serif}
+
+  /* ===== NAV ===== */
+  nav{position:sticky;top:0;z-index:50;background:rgba(13,43,51,.96);backdrop-filter:blur(6px);
+    display:flex;gap:4px;align-items:center;padding:10px 20px;overflow-x:auto}
+  nav .brand{color:#fff;font-family:'Sora';font-weight:700;font-size:.82rem;letter-spacing:.06em;white-space:nowrap;margin-right:14px}
+  nav a{color:#B9D3D6;text-decoration:none;font-size:.76rem;font-weight:600;padding:6px 12px;border-radius:99px;white-space:nowrap;transition:.2s}
+  nav a:hover{background:rgba(255,255,255,.12);color:#fff}
+
+  section{max-width:1080px;margin:0 auto;padding:64px 28px}
+  .eyebrow{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--petrol);background:var(--petrol-soft);padding:5px 14px;border-radius:99px;margin-bottom:14px}
+  .section-title{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;margin-bottom:8px}
+  .section-sub{color:var(--grey);font-size:.95rem;max-width:720px;margin-bottom:30px}
+
+  /* ===== HERO ===== */
+  .hero{background:linear-gradient(150deg,#0D2B33 0%,#155A66 70%,#1E7180 100%);color:#fff;padding:0}
+  .hero-inner{max-width:1080px;margin:0 auto;padding:76px 28px 64px}
+  .hero .tag{display:inline-block;border:1px solid rgba(255,255,255,.35);border-radius:99px;padding:6px 16px;
+    font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;color:#DCEBEA}
+  .hero h1{font-size:clamp(1.9rem,4.4vw,3.1rem);font-weight:800;line-height:1.15;max-width:760px}
+  .hero h1 em{font-style:normal;color:var(--amber)}
+  .hero p.lead{margin-top:16px;color:#C7DDDE;font-size:1rem;max-width:640px}
+  .hero .meta{margin-top:34px;display:flex;flex-wrap:wrap;gap:26px;font-size:.85rem;color:#AFCBCC}
+  .hero .meta b{display:block;color:#fff;font-size:.95rem;font-family:'Sora'}
+
+  /* ===== AGENDA ===== */
+  .agenda-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+  .agenda-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px}
+  .agenda-card .num{font-family:'Sora';font-weight:800;color:var(--amber);font-size:.85rem;letter-spacing:.08em}
+  .agenda-card h3{font-size:1rem;margin:6px 0 6px}
+  .agenda-card p{font-size:.83rem;color:var(--grey)}
+
+  /* ===== KPI ===== */
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:26px}
+  .kpi{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;position:relative;overflow:hidden}
+  .kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--petrol)}
+  .kpi.accent::before{background:var(--amber)}
+  .kpi.good::before{background:var(--green)}
+  .kpi .label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
+  .kpi .value{font-family:'Sora';font-weight:800;font-size:1.55rem;margin-top:6px;line-height:1.1}
+  .kpi .note{font-size:.78rem;color:var(--grey);margin-top:6px}
+
+  /* progress rail */
+  .rail{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:26px 26px 20px}
+  .rail h3{font-size:.95rem;margin-bottom:4px}
+  .rail .sub{font-size:.8rem;color:var(--grey);margin-bottom:20px}
+  .bars{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;align-items:end;height:170px}
+  .bar{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
+  .bar .col{width:100%;max-width:64px;border-radius:8px 8px 4px 4px;background:linear-gradient(180deg,#2A7C8B,#155A66);position:relative}
+  .bar.q2 .col{background:linear-gradient(180deg,#F0B65B,#DC9327)}
+  .bar .pct{font-family:'Sora';font-weight:700;font-size:.8rem;margin-bottom:6px}
+  .bar .mo{font-size:.72rem;color:var(--grey);margin-top:8px;font-weight:600}
+  .rail .legend{display:flex;gap:18px;margin-top:16px;font-size:.75rem;color:var(--grey)}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  .dot.tw1{background:#155A66}.dot.tw2{background:#E8A33D}
+
+  /* ===== PROJECT CARDS ===== */
+  .proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+  .proj{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+  .proj .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
+  .proj h3{font-size:.98rem;line-height:1.3}
+  .proj .inst{font-size:.75rem;color:var(--grey);font-weight:600;margin-top:2px}
+  .chip{font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:99px;white-space:nowrap}
+  .chip.on{background:var(--green-soft);color:var(--green)}
+  .chip.warn{background:var(--amber-soft);color:#A8700F}
+  .chip.risk{background:var(--red-soft);color:var(--red)}
+  .pbar{height:8px;background:#E7EFEE;border-radius:99px;overflow:hidden;margin:10px 0 6px}
+  .pbar span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#2A7C8B,#155A66)}
+  .proj .pmeta{display:flex;justify-content:space-between;font-size:.74rem;color:var(--grey);font-weight:600;margin-bottom:12px}
+  .proj ul{list-style:none;font-size:.83rem}
+  .proj li{padding-left:20px;position:relative;margin-bottom:7px}
+  .proj li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:700}
+  .proj li.warn::before{content:"!";color:#A8700F}
+  .proj li.risk::before{content:"✕";color:var(--red)}
+
+  /* ===== TWO COL LISTS ===== */
+  .two-col{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+  .panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+  .panel h3{font-size:.95rem;display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .panel h3 .ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:.95rem}
+  .ic.g{background:var(--green-soft)} .ic.a{background:var(--amber-soft)} .ic.r{background:var(--red-soft)} .ic.p{background:var(--petrol-soft)}
+  .panel ul{list-style:none;font-size:.85rem}
+  .panel li{padding:9px 0 9px 24px;position:relative;border-bottom:1px dashed var(--line)}
+  .panel li:last-child{border-bottom:0}
+  .panel li::before{content:"●";position:absolute;left:2px;top:11px;font-size:.55rem;color:var(--petrol)}
+  .panel.goal li::before{content:"✓";color:var(--green);font-size:.85rem;top:8px}
+  .panel.skip li::before{content:"✕";color:var(--red);font-size:.8rem;top:8px}
+  .panel li small{display:block;color:var(--grey);font-size:.75rem;margin-top:2px}
+  .panel .val{float:right;font-family:'Sora';font-weight:700;font-size:.78rem;color:var(--petrol)}
+
+  /* ===== KENDALA ===== */
+  .kendala{border-left:5px solid var(--red)}
+  .solusi{border-left:5px solid var(--green)}
+
+  /* ===== TW3 ===== */
+  .concept{background:linear-gradient(140deg,#0D2B33,#155A66);color:#fff;border-radius:var(--radius);padding:32px;margin-bottom:26px;
+    display:grid;grid-template-columns:1.4fr 1fr;gap:28px;align-items:center}
+  .concept h3{font-size:1.35rem;font-weight:800;line-height:1.3}
+  .concept h3 em{font-style:normal;color:var(--amber)}
+  .concept p{color:#C7DDDE;font-size:.88rem;margin-top:10px}
+  .debug-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:20px}
+  .debug-card .t{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:12px}
+  .debug-card .member{display:flex;align-items:center;gap:12px;padding:7px 0;font-weight:600;font-size:.9rem}
+  .avatar{width:34px;height:34px;border-radius:50%;background:var(--amber);color:#0D2B33;display:grid;place-items:center;
+    font-family:'Sora';font-weight:800;font-size:.8rem}
+
+  table{width:100%;border-collapse:collapse;background:var(--paper);border-radius:var(--radius);overflow:hidden;
+    border:1px solid var(--line);font-size:.83rem}
+  thead{background:var(--ink);color:#fff}
+  th{padding:12px 14px;text-align:left;font-family:'Sora';font-weight:700;font-size:.74rem;letter-spacing:.05em;text-transform:uppercase}
+  td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:top}
+  tbody tr:nth-child(even){background:#FAFCFB}
+  td .pname{font-weight:700} td .pinst{font-size:.73rem;color:var(--grey)}
+  .tw-wrap{overflow-x:auto;border-radius:var(--radius)}
+
+  /* ===== FOOTER ===== */
+  footer{background:var(--ink);color:#9FBEC1;text-align:center;padding:44px 20px;font-size:.85rem}
+  footer b{color:#fff;font-family:'Sora';font-size:1.2rem;display:block;margin-bottom:8px}
+
+  @media(max-width:760px){
+    .concept{grid-template-columns:1fr}
+    .bars{height:130px}
+  }
+  @media print{
+    nav{display:none} section{padding:30px 20px} body{background:#fff}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">MST · TIM NURIYANTO</span>
+  <a href="#resume">Resume TW2</a>
+  <a href="#kinerja">Kinerja Project</a>
+  <a href="#internal">Internal Process</a>
+  <a href="#crm">CRM Support</a>
+  <a href="#kendala">Kendala</a>
+  <a href="#tw3">Rencana TW3</a>
+  <a href="#tim">Pengembangan Tim</a>
+  <a href="#prospek">Prospek Bisnis</a>
+  <a href="#inovasi">Inovasi 2026</a>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<div class="hero">
+  <div class="hero-inner">
+    <span class="tag">Meeting Reviu Triwulan · 2026</span>
+    <h1>Reviu Triwulan II &amp; <em>Rencana Triwulan III</em></h1>
+    <p class="lead">Point-point penting kinerja &amp; kendala Triwulan II / Semester I, serta rencana kegiatan bernilai produktif tinggi untuk Triwulan III — khusus tim yang dikelola Nuriyanto.</p>
+    <div class="meta">
+      <div><b>Nuriyanto</b>Team Leader Produksi</div>
+      <div><b>PT. Mitra Sinerji Teknoindo</b>Tim Produksi</div>
+      <div><b>Periode Reviu</b>April – Juni 2026 (Semester I)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== AGENDA ===================== -->
+<section>
+  <span class="eyebrow">Agenda Paparan</span>
+  <div class="agenda-grid">
+    <div class="agenda-card"><div class="num">01</div><h3>Resume Capaian TW2</h3><p>Angka kunci pencapaian tim s.d. Semester I</p></div>
+    <div class="agenda-card"><div class="num">02</div><h3>Kinerja Project</h3><p>Status &amp; highlight tiap project TW2</p></div>
+    <div class="agenda-card"><div class="num">03</div><h3>Internal &amp; CRM</h3><p>Proses internal serta hasil support prospek</p></div>
+    <div class="agenda-card"><div class="num">04</div><h3>Kendala &amp; Rencana TW3</h3><p>Kendala utama dan konsep kerja Triwulan III</p></div>
+  </div>
+</section>
+
+<!-- ===================== RESUME TW2 ===================== -->
+<section id="resume">
+  <span class="eyebrow">Evaluasi TW 2 · Semester I</span>
+  <h2 class="section-title">Resume Capaian Tim Nuriyanto</h2>
+  <p class="section-sub">Posisi per akhir Juni 2026 terhadap target pengerjaan tahunan Rp 1,6 Milyar.</p>
+
+  <div class="kpi-grid">
+    <div class="kpi"><div class="label">Nilai Pengerjaan 2026</div><div class="value">Rp 804,6 Jt</div><div class="note">Total kontrak porsi tim berjalan</div></div>
+    <div class="kpi accent"><div class="label">Nilai Pencapaian</div><div class="value">Rp 330,5 Jt</div><div class="note">20,66% dari target 1,6 M</div></div>
+    <div class="kpi good"><div class="label">Nilai Pencairan</div><div class="value">Rp 93,6 Jt</div><div class="note">5,85% — mayoritas termin jatuh di TW3</div></div>
+    <div class="kpi"><div class="label">Project Berjalan</div><div class="value">5 + 2</div><div class="note">5 berkontrak · 1 garansi · 1 support</div></div>
+  </div>
+
+  <div class="rail">
+    <h3>Akselerasi Pencapaian per Bulan (kumulatif % terhadap target)</h3>
+    <div class="sub">TW2 menyumbang <b>+15,2 poin</b> — hampir 4x lipat capaian TW1 (5,51% → 20,66%). Efek kontrak baru (NON SIMS, PMS, Simpel, Chatbot) mulai jalan penuh.</div>
+    <div class="bars">
+      <div class="bar"><div class="pct">0,4%</div><div class="col" style="height:4%"></div><div class="mo">JAN</div></div>
+      <div class="bar"><div class="pct">0,4%</div><div class="col" style="height:4%"></div><div class="mo">FEB</div></div>
+      <div class="bar"><div class="pct">5,5%</div><div class="col" style="height:22%"></div><div class="mo">MAR</div></div>
+      <div class="bar q2"><div class="pct">6,2%</div><div class="col" style="height:26%"></div><div class="mo">APR</div></div>
+      <div class="bar q2"><div class="pct">13,4%</div><div class="col" style="height:56%"></div><div class="mo">MEI</div></div>
+      <div class="bar q2"><div class="pct">20,7%</div><div class="col" style="height:88%"></div><div class="mo">JUN</div></div>
+    </div>
+    <div class="legend"><span><span class="dot tw1"></span>Triwulan I</span><span><span class="dot tw2"></span>Triwulan II</span></div>
+  </div>
+</section>
+
+<!-- ===================== KINERJA PROJECT ===================== -->
+<section id="kinerja">
+  <span class="eyebrow">Activity Reviu TW 2</span>
+  <h2 class="section-title">Kinerja per Project — Point Penting</h2>
+  <p class="section-sub">Seluruh target bulanan April–Juni tercapai, kecuali Simponi V2 (dependensi eksternal). Dua kontrak baru berhasil diamankan dan langsung berjalan.</p>
+
+  <div class="proj-grid">
+    <div class="proj">
+      <div class="top"><div><h3>Pemeliharaan Simpel Nextgen — Pengujian</h3><div class="inst">BBPPT · Komdigi &nbsp;|&nbsp; Rp 181,9 Jt (porsi 50%)</div></div><span class="chip on">On Track</span></div>
+      <div class="pbar"><span style="width:62.5%"></span></div>
+      <div class="pmeta"><span>Progres 62,5%</span><span>Kontrak s.d. 12 Okt 2026</span></div>
+      <ul>
+        <li>Target bulanan 37,5% → 50% → 62,5% <b>semua tercapai</b></li>
+        <li>Penagihan &amp; pencairan <b>Termin I (50%)</b> cair di Juni</li>
+      </ul>
+    </div>
+
+    <div class="proj">
+      <div class="top"><div><h3>Pemeliharaan Simpel Nextgen — Kalibrasi</h3><div class="inst">BBPPT · Komdigi &nbsp;|&nbsp; Rp 99,7 Jt (porsi 50%)</div></div><span class="chip on">On Track</span></div>
+      <div class="pbar"><span style="width:62.5%"></span></div>
+      <div class="pmeta"><span>Progres 62,5%</span><span>Kontrak s.d. 12 Okt 2026</span></div>
+      <ul>
+        <li>Target bulanan tercapai konsisten hingga 62,5%</li>
+        <li><b>Termin I (50%)</b> cair di Juni</li>
+      </ul>
+    </div>
+
+    <div class="proj">
+      <div class="top"><div><h3>Pemeliharaan Aplikasi NON SIMS 2026</h3><div class="inst">Komdigi · Dit. Layanan Infrastruktur &nbsp;|&nbsp; Rp 999 Jt (porsi 60% = Rp 529,2 Jt)</div></div><span class="chip on">On Track</span></div>
+      <div class="pbar"><span style="width:40%"></span></div>
+      <div class="pmeta"><span>Progres 40%</span><span>Kontrak Mar – Des 2026</span></div>
+      <ul>
+        <li>Project terbesar tim — target 20% → 30% → 40% tercapai</li>
+        <li>Monev April &amp; Mei terlaksana (ERD, application model, pra-monev CAT/Adeya/E-Sertifikasi)</li>
+      </ul>
+    </div>
+
+    <div class="proj">
+      <div class="top"><div><h3>Pemeliharaan Aplikasi PMS</h3><div class="inst">PT. Biofarma (Persero) &nbsp;|&nbsp; KI · Rp 63 Jt</div></div><span class="chip on">On Track</span></div>
+      <div class="pbar"><span style="width:50%"></span></div>
+      <div class="pmeta"><span>Progres 50%</span><span>Kontrak Apr – Sep 2026</span></div>
+      <ul>
+        <li><b>Hasil goal prospek TW2</b> — berkontrak April, langsung berjalan</li>
+        <li>Penagihan &amp; pencairan bulan ke-1 s.d. ke-3 lancar</li>
+        <li>Launching fitur baru siap <b>2 Juli 2026</b></li>
+      </ul>
+    </div>
+
+    <div class="proj">
+      <div class="top"><div><h3>Pengembangan Chatbot AI Balai Uji</h3><div class="inst">BBPPT · Komdigi &nbsp;|&nbsp; Rp 99,8 Jt (Mitra Nusa)</div></div><span class="chip on">On Track</span></div>
+      <div class="pbar"><span style="width:55%"></span></div>
+      <div class="pmeta"><span>Progres 55%</span><span>Kontrak Jun – Ags 2026</span></div>
+      <ul>
+        <li>Dari prospek → <b>berkontrak &amp; kick-off Mei</b>, progres 55% di Juni</li>
+        <li>Uji coba <b>multi-agent</b>, pengembangan knowledge base &amp; integrasi aplikasi eksternal</li>
+        <li>Berawal dari R&amp;D vibe coding internal</li>
+      </ul>
+    </div>
+
+    <div class="proj">
+      <div class="top"><div><h3>E-Sertifikasi Nextgen (AI)</h3><div class="inst">Komdigi · Dit. Layanan Infrastruktur</div></div><span class="chip warn">Garansi + Inisiasi</span></div>
+      <div class="pbar"><span style="width:100%"></span></div>
+      <div class="pmeta"><span>Garansi 2025 berjalan penuh</span><span>2026: tahap inisiasi</span></div>
+      <ul>
+        <li>Maintenance / garansi pendampingan 2025 berjalan tiap bulan</li>
+        <li>Inisiasi 2026: kunjungan &amp; pendampingan loket, analisa matriks AI, dummy service</li>
+      </ul>
+    </div>
+
+    <div class="proj">
+      <div class="top"><div><h3>Pengembangan Simponi V2 Tahap 2</h3><div class="inst">BATII · Kemenkeu</div></div><span class="chip risk">Adjustment</span></div>
+      <div class="pbar"><span style="width:30%;background:linear-gradient(90deg,#D98A3C,#C4574A)"></span></div>
+      <div class="pmeta"><span>Tertunda 3 bulan berturut</span><span>Menunggu pihak eksternal</span></div>
+      <ul>
+        <li class="risk">Go-Live cluster production &amp; mulai Prohire <b>belum terealisasi</b> Apr–Jun</li>
+        <li class="warn">Perlu eskalasi / kepastian jadwal dari sisi BATII di awal TW3</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== INTERNAL PROCESS ===================== -->
+<section id="internal">
+  <span class="eyebrow">Internal Process TW 2</span>
+  <h2 class="section-title">Proses Internal yang Sudah Berjalan</h2>
+  <div class="two-col">
+    <div class="panel">
+      <h3><span class="ic p">⚡</span>Penerapan Vibe Coding</h3>
+      <ul>
+        <li>Diterapkan di <b>semua project</b> tim — mempercepat delivery &amp; fix issue<small>Berdampak langsung pada tercapainya seluruh target bulanan TW2</small></li>
+        <li>Webinar Vibecoding (Juni) terlaksana 100% — knowledge sharing ke tim luas</li>
+        <li>R&amp;D vibe coding menjadi pintu masuk project Chatbot AI BBPPT</li>
+        <li>Pengembangan <b>Aplikasi POS F&amp;B</b> — hasil pengembangan <b>full via vibe coding</b><small>Bukti nyata kapabilitas: satu aplikasi utuh dibangun sepenuhnya dengan vibe coding</small></li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3><span class="ic a">🛠</span>Tools Fast Report</h3>
+      <ul>
+        <li>Pembuatan &amp; pemanfaatan tools <b>fast report</b> untuk dokumentasi/laporan<small>Baru diterapkan di beberapa project minimal sebagai pilot</small></li>
+        <li>TW3: perluasan ke lebih banyak project seiring konsep Full AI</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CRM ===================== -->
+<section id="crm">
+  <span class="eyebrow">CRM Process Support · TW 2</span>
+  <h2 class="section-title">Hasil Support Prospek Project</h2>
+  <p class="section-sub">Dari 6 prospek yang disupport, <b>3 goal berkontrak</b> — konversi 50%, termasuk 2 project bernilai besar berbasis AI.</p>
+  <div class="two-col">
+    <div class="panel goal">
+      <h3><span class="ic g">✓</span>Prospek Goal — 3 Project</h3>
+      <ul>
+        <li>Pemeliharaan PMS<small>PT. Biofarma (Persero)</small></li>
+        <li>Pengembangan Chatbot AI<small>BBPPT — Komdigi</small></li>
+        <li>Pengembangan CAT berbasis AI<small>Dit. Layanan Infrastruktur — Komdigi · via e-Catalogue</small></li>
+      </ul>
+    </div>
+    <div class="panel skip">
+      <h3><span class="ic r">✕</span>Prospek Skip — 3 Project</h3>
+      <ul>
+        <li>Pengembangan Dashboard Perizinan berbasis AI<small>Dit. Layanan Infrastruktur — Komdigi</small></li>
+        <li>Pengembangan Aplikasi Antrian Online<small>Dit. Layanan Infrastruktur — Komdigi</small></li>
+        <li>Prohire<small>Baatiik — Kemenkeu</small></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== KENDALA ===================== -->
+<section id="kendala">
+  <span class="eyebrow">Kendala TW 2 / Semester I</span>
+  <h2 class="section-title">Kendala &amp; Usulan Solusi</h2>
+  <div class="two-col">
+    <div class="panel kendala">
+      <h3><span class="ic r">⚠</span>Kendala Utama</h3>
+      <ul>
+        <li><b>Subscribe layanan token AI</b> perlu di-support untuk setiap person<small>Adopsi Full AI terhambat jika token hanya tersedia terbatas — biaya masih ditanggung individu</small></li>
+        <li>Simponi V2: Go-Live &amp; Prohire tertunda karena dependensi eksternal (BATII)</li>
+      </ul>
+    </div>
+    <div class="panel solusi">
+      <h3><span class="ic g">→</span>Usulan Tindak Lanjut</h3>
+      <ul>
+        <li>Support subscription token AI per person oleh perusahaan<small>Prasyarat konsep "One Project One Person Full AI" di TW3</small></li>
+        <li>Eskalasi jadwal Go-Live Simponi V2 ke PIC BATII di awal Juli</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TW3 ===================== -->
+<section id="tw3">
+  <span class="eyebrow">Activity Plan · Triwulan III</span>
+  <h2 class="section-title">Konsep &amp; Rencana Kegiatan TW3</h2>
+  <p class="section-sub">Fokus pada kegiatan bernilai produktif tinggi: menuntaskan kontrak jatuh tempo TW3, eksekusi project AI hasil goal prospek, dan menaikkan produktivitas per orang.</p>
+
+  <div class="concept">
+    <div>
+      <h3>One Project <em>One Person</em> dengan Full AI</h3>
+      <p>Satu project dipegang penuh satu person dengan dukungan penuh AI (sesuai kondisi project) — melipatgandakan kapasitas tim tanpa penambahan headcount, melanjutkan momentum vibe coding TW2.</p>
+    </div>
+    <div class="debug-card">
+      <div class="t">Tim "Debugger" · TW3</div>
+      <div class="member"><span class="avatar">N</span> <span>Nuriyanto <small style="display:block;font-size:.68rem;color:#AFCBCC;font-weight:600;letter-spacing:.08em;text-transform:uppercase">PIC Tim</small></span></div>
+      <div class="member"><span class="avatar">I</span> <span>Indra <small style="display:block;font-size:.68rem;color:#AFCBCC;font-weight:600;letter-spacing:.08em;text-transform:uppercase">Anggota</small></span></div>
+      <div class="member"><span class="avatar">M</span> <span>Mu'in <small style="display:block;font-size:.68rem;color:#AFCBCC;font-weight:600;letter-spacing:.08em;text-transform:uppercase">Anggota</small></span></div>
+    </div>
+  </div>
+
+  <div class="tw-wrap">
+  <table>
+    <thead><tr><th style="width:32%">Project</th><th>Juli</th><th>Agustus</th><th>September</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="pname">Simpel Nextgen Pengujian &amp; Kalibrasi</span><br><span class="pinst">BBPPT — Komdigi</span></td>
+        <td>Target 75% · Termin berjalan</td>
+        <td>Target 87,5%</td>
+        <td>Target 100% — persiapan closing (kontrak s.d. 12 Okt)</td>
+      </tr>
+      <tr>
+        <td><span class="pname">Pemeliharaan NON SIMS 2026</span><br><span class="pinst">Komdigi — Dit. Layanan · Rp 999 Jt</span></td>
+        <td>Target 50% · Monev Juni</td>
+        <td>Target 60% · Monev rutin</td>
+        <td>Target 70% · penagihan termin</td>
+      </tr>
+      <tr>
+        <td><span class="pname">Pemeliharaan PMS</span><br><span class="pinst">PT. Biofarma — kontrak berakhir Sep</span></td>
+        <td>Launching fitur baru <b>2 Juli</b> · target 66%</td>
+        <td>Target 83%</td>
+        <td><b>Target 100% &amp; serah terima</b> · pencairan penuh</td>
+      </tr>
+      <tr>
+        <td><span class="pname">Chatbot AI Balai Uji</span><br><span class="pinst">BBPPT — kontrak berakhir Ags</span></td>
+        <td>Target 75% · penyempurnaan multi-agent &amp; knowledge</td>
+        <td><b>Target 100%, UAT &amp; serah terima</b></td>
+        <td>Garansi / pendampingan</td>
+      </tr>
+      <tr>
+        <td><span class="pname">Pengembangan CAT berbasis AI</span><br><span class="pinst">Komdigi — Dit. Layanan · via e-Catalogue · hasil goal prospek</span></td>
+        <td>Eksekusi pengembangan — support lintas tim</td>
+        <td>Progres pengembangan berlanjut</td>
+        <td>Progres sesuai kontrak (s.d. Des 2026)</td>
+      </tr>
+      <tr>
+        <td><span class="pname">E-Sertifikasi Nextgen 2026 (AI)</span><br><span class="pinst">Komdigi — Dit. Layanan</span></td>
+        <td>Lanjut analisa matriks AI &amp; service</td>
+        <td>Pengembangan modul AI loket</td>
+        <td>Uji coba di sisi loket · garansi 2025 tetap berjalan</td>
+      </tr>
+      <tr>
+        <td><span class="pname">Simponi V2 Tahap 2</span><br><span class="pinst">BATII — Kemenkeu</span></td>
+        <td><b>Eskalasi &amp; dorong Go-Live</b> cluster production</td>
+        <td>Mulai Prohire 2026</td>
+        <td>Pendampingan modul pelaksanaan</td>
+      </tr>
+      <tr>
+        <td><span class="pname">Internal — Full AI &amp; Fast Report</span><br><span class="pinst">Tim Nuriyanto</span></td>
+        <td>Setup token AI per person · rollout konsep 1-project-1-person</td>
+        <td>Perluasan tools fast report ke semua project</td>
+        <td>Evaluasi produktivitas konsep Full AI</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="kpi-grid" style="margin-top:26px">
+    <div class="kpi accent"><div class="label">Potensi Nilai TW3</div><div class="value">± Rp 250 Jt+</div><div class="note">Pencairan termin Simpel, NON SIMS, PMS &amp; Chatbot</div></div>
+    <div class="kpi good"><div class="label">Target Closing</div><div class="value">2 Project</div><div class="note">PMS Biofarma (Sep) &amp; Chatbot Balai Uji (Ags)</div></div>
+    <div class="kpi"><div class="label">Prasyarat Utama</div><div class="value">Token AI</div><div class="note">Support subscription per person</div></div>
+  </div>
+</section>
+
+<!-- ===================== PENGEMBANGAN TIM ===================== -->
+<section id="tim">
+  <span class="eyebrow">Rencana Pengembangan Tim</span>
+  <h2 class="section-title">Membangun Kapasitas Tim ke Depan</h2>
+  <p class="section-sub">Arah pengembangan: dari tim yang solid dan saling backup, menjadi tim di mana <b>setiap person mampu memegang project penuh dengan dukungan AI</b>.</p>
+
+  <div class="two-col">
+    <div class="panel">
+      <h3><span class="ic p">🤖</span>Peningkatan Skill AI</h3>
+      <ul>
+        <li>Pendalaman <b>LLM, RAG, multi-agent &amp; AI automation</b><small>Melanjutkan hasil nyata TW2: Chatbot Balai Uji, E-Sertifikasi AI, vibe coding</small></li>
+        <li>R&amp;D internal berkelanjutan + webinar/knowledge sharing rutin<small>Format webinar vibecoding Juni dijadikan agenda berkala</small></li>
+        <li>Standarisasi workflow Full AI: prompt, tooling &amp; fast report di semua project</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3><span class="ic a">🎯</span>Kapasitas &amp; Regenerasi</h3>
+      <ul>
+        <li><b>Indra &amp; Mu'in naik kapasitas</b> menjadi PIC project mandiri<small>Sejalan konsep One Project One Person — Nuriyanto fokus supervisi &amp; prospek</small></li>
+        <li>Tim <b>"Debugger"</b> (PIC: Nuriyanto) sebagai wadah mentoring &amp; penjaga kualitas lintas project</li>
+        <li>Penambahan kapasitas mengutamakan <b>resource lintas tim</b>; hire hanya jika lintas tim penuh (opsional)</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3><span class="ic g">🧰</span>Dukungan Infrastruktur</h3>
+      <ul>
+        <li>Support <b>subscription token AI per person</b> oleh perusahaan<small>Prasyarat utama produktivitas Full AI — kendala TW2 yang perlu diputuskan</small></li>
+        <li>Upgrade device/spek untuk kebutuhan pengembangan berbasis AI (opsional, bertahap)</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3><span class="ic r">🛡</span>Menjawab Skill Gap Pasar</h3>
+      <ul>
+        <li>Pasar bergerak ke <b>AI/LLM, automation &amp; data engineering</b> — tim diarahkan keluar dari zona "web dev basic"<small>Kunci masuk project high-value &amp; menjawab kompetisi yang makin ketat</small></li>
+        <li>Bangun portofolio &amp; credibility berbasis project AI yang sudah goal (Chatbot, CAT AI, E-Sertifikasi)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROSPEK BISNIS ===================== -->
+<section id="prospek">
+  <span class="eyebrow">Prospek Bisnis ke Depan</span>
+  <h2 class="section-title">Pipeline &amp; Peluang yang Dipantau</h2>
+  <p class="section-sub">Prioritas pada klien eksisting dengan track record baik (Komdigi, BATII, Biofarma, BBPPT) dan replikasi kapabilitas AI yang sudah terbukti.</p>
+
+  <div class="proj-grid">
+    <div class="proj">
+      <div class="top"><div><h3>Pengembangan E-Sertifikasi AI — Nextgen Tahap II</h3><div class="inst">Komdigi — Dit. Layanan Infrastruktur &nbsp;|&nbsp; Estimasi ± Rp 200 Jt</div></div><span class="chip on">Prioritas Tinggi</span></div>
+      <ul>
+        <li>Sudah masuk daftar <b>upcoming project 2026</b> — saat ini <b>tahap inisiasi</b></li>
+        <li>Rencana metode <b>Pengadaan Langsung</b></li>
+        <li>Inisiasi teknis sudah jalan sejak Juni (analisa matriks AI, dummy service, pendampingan loket)</li>
+        <li>Posisi tim sangat kuat: pemegang garansi &amp; knowledge aplikasi eksisting</li>
+      </ul>
+    </div>
+
+    <div class="proj">
+      <div class="top"><div><h3>Simponi V2 Tahap 3 &amp; Prohire</h3><div class="inst">BATII — Kemenkeu</div></div><span class="chip on">Prioritas Tinggi</span></div>
+      <ul>
+        <li>Upcoming project 2026 — kelanjutan alami Tahap 2 yang dipegang tim</li>
+        <li class="warn">Syarat: Go-Live Tahap 2 dituntaskan dulu di awal TW3</li>
+      </ul>
+    </div>
+
+    <div class="proj">
+      <div class="top"><div><h3>Replikasi Produk Chatbot AI + OCR</h3><div class="inst">Multi-instansi — berbasis core chatbot MST</div></div><span class="chip warn">Dikembangkan</span></div>
+      <ul>
+        <li>Core chatbot &amp; OCR hasil R&amp;D internal sudah terbukti jadi kontrak (Balai Uji BBPPT)</li>
+        <li>Paketkan sebagai <b>produk siap tawar</b> ke instansi lain — layanan publik, helpdesk, knowledge base</li>
+        <li>Sinergi dengan promosi JENI (AI Personal Assistant) di sisi BizDev</li>
+      </ul>
+    </div>
+
+    <div class="proj">
+      <div class="top"><div><h3>Re-approach Prospek e-Catalogue</h3><div class="inst">Komdigi — Dit. Layanan Infrastruktur</div></div><span class="chip risk">Abu-abu</span></div>
+      <ul>
+        <li class="warn"><b>Dashboard Perizinan berbasis AI</b> (± Rp 200 Jt) — status <b>masih abu-abu</b> karena pemotongan anggaran tahun ini</li>
+        <li class="warn"><b>Aplikasi Antrian Online</b> (± Rp 500 Jt) — status <b>masih abu-abu</b>, kondisi anggaran sama</li>
+        <li>Sikap tim: tetap jaga relasi via pemeliharaan NON SIMS, <b>tanpa alokasi effort besar</b> sampai ada kepastian anggaran</li>
+      </ul>
+    </div>
+
+    <div class="proj">
+      <div class="top"><div><h3>Kelanjutan Kontrak Pemeliharaan 2027</h3><div class="inst">BBPPT &amp; Komdigi — Dit. Layanan</div></div><span class="chip on">Recurring</span></div>
+      <ul>
+        <li>Simpel Nextgen Pengujian &amp; Kalibrasi — jaga kualitas s.d. closing Okt sebagai modal perpanjangan</li>
+        <li>NON SIMS — kontrak terbesar tim (Rp 999 Jt); monev rapi = peluang lanjutan 2027</li>
+        <li>PMS Biofarma — closing mulus Sep membuka pemeliharaan tahap berikutnya</li>
+      </ul>
+    </div>
+
+    <div class="proj">
+      <div class="top"><div><h3>Layanan Berbasis AI untuk Klien Eksisting</h3><div class="inst">Lintas instansi MST</div></div><span class="chip warn">Eksplorasi</span></div>
+      <ul>
+        <li>Tawarkan modul AI (chatbot, otomatisasi laporan, analisa dokumen) sebagai <b>add-on</b> di project pemeliharaan berjalan</li>
+        <li>Nilai jual: eksekusi cepat &amp; hemat biaya berkat workflow Full AI — pembeda dari kompetitor</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="kpi-grid" style="margin-top:26px">
+    <div class="kpi accent"><div class="label">Pipeline Teridentifikasi</div><div class="value">6 Peluang</div><div class="note">2 prioritas tinggi · 2 recurring · 2 eksplorasi</div></div>
+    <div class="kpi"><div class="label">Estimasi Nilai Prospek</div><div class="value">± Rp 200 Jt</div><div class="note">E-Sertifikasi AI (PL) · +Rp 700 Jt masih abu-abu (terdampak pemotongan anggaran)</div></div>
+    <div class="kpi good"><div class="label">Strategi Utama</div><div class="value">AI First</div><div class="note">Portofolio AI sebagai pembeda menghadapi kompetisi</div></div>
+  </div>
+</section>
+
+<!-- ===================== INOVASI 2026 ===================== -->
+<section id="inovasi">
+  <span class="eyebrow">Inovasi Menghadapi 2026</span>
+  <h2 class="section-title">Inovasi untuk Bertahan &amp; Tumbuh di Kondisi Sulit</h2>
+  <p class="section-sub">Realitas 2026: anggaran instansi dipangkas (contoh: INDRAIN di-cutoff), kompetisi makin ketat, budget klien fixed, dan klien makin selektif. Strategi bertahan: <b>turunkan biaya produksi, ciptakan pendapatan berulang, dan jangan bergantung pada satu jenis pasar.</b></p>
+
+  <div class="proj-grid">
+    <div class="proj">
+      <div class="top"><div><h3>1 · Efisiensi Radikal via Full AI</h3><div class="inst">Bertahan dengan margin, bukan volume</div></div><span class="chip on">Sudah Terbukti</span></div>
+      <ul>
+        <li>One Project One Person + AI → biaya produksi per project turun drastis</li>
+        <li>Bisa menawar <b>lebih murah dari kompetitor namun tetap profitable</b> — kunci saat budget klien fixed &amp; sulit nego</li>
+        <li>Kapasitas tim naik tanpa hire — headcount tetap, output bertambah</li>
+      </ul>
+    </div>
+
+    <div class="proj">
+      <div class="top"><div><h3>2 · Produktisasi Hasil Project</h3><div class="inst">Dari jual jam kerja → jual produk</div></div><span class="chip on">Modal Sudah Ada</span></div>
+      <ul>
+        <li>Kemas ulang aset yang sudah jadi: <b>Aplikasi POS F&amp;B (full vibe coding), Chatbot AI + OCR, JENI (AI Assistant), fast report, PresensiKita/SinerjiHR, Rumpun, UpWeb</b></li>
+        <li>Jual berulang ke banyak klien dengan biaya implementasi minim — 1x bangun, Nx jual</li>
+        <li>Membangun <b>recurring revenue</b> (langganan/maintenance) sebagai bantalan saat project pemerintah sepi</li>
+      </ul>
+    </div>
+
+    <div class="proj">
+      <div class="top"><div><h3>3 · Diversifikasi Pasar Non-Pemerintah</h3><div class="inst">Kurangi ketergantungan pada APBN</div></div><span class="chip warn">Diperluas</span></div>
+      <ul>
+        <li>Segmen swasta &amp; BUMN sudah terbuka: Biofarma, Pos, Jamkrida, TVS, Brexa, Djaja Listrik — perbanyak</li>
+        <li>Segmen mikro: web sederhana sekolah/UMKM (UpWeb — sudah closing klien pertama), paket harga terjangkau volume banyak</li>
+        <li>Risiko pemangkasan anggaran pemerintah tidak lagi mematikan cash flow</li>
+      </ul>
+    </div>
+
+    <div class="proj">
+      <div class="top"><div><h3>4 · AI sebagai Add-On &amp; Upselling</h3><div class="inst">Nilai baru dari klien yang sudah ada</div></div><span class="chip warn">Q3–Q4 2026</span></div>
+      <ul>
+        <li>Tawarkan modul AI (chatbot layanan, otomatisasi laporan, analisa dokumen) ke <b>semua kontrak pemeliharaan berjalan</b></li>
+        <li>Biaya akuisisi nol — klien sudah percaya, tinggal tunjukkan demo cepat hasil vibe coding</li>
+        <li>Pembeda dari kompetitor yang masih di level web dev basic</li>
+      </ul>
+    </div>
+
+    <div class="proj">
+      <div class="top"><div><h3>5 · Monetisasi Knowledge</h3><div class="inst">Keahlian tim sebagai lini pendapatan</div></div><span class="chip risk">Perlu Analisa Ulang</span></div>
+      <ul>
+        <li class="warn"><b>Temuan riil:</b> webinar gratis (vibecoding, "Buat Web dengan AI") — pendaftar banyak, tapi <b>yang hadir di hari-H sedikit</b></li>
+        <li>Analisa dulu sebelum lanjut: kenapa drop-off tinggi? (gratis = komitmen rendah, jadwal, format, target audiens)</li>
+        <li>Opsi yang diuji kecil-kecilan: <b>kelas berbayar nominal kecil</b> sebagai filter keseriusan, rekaman on-demand, atau follow-up 1-on-1 ke pendaftar sebagai funnel penjualan</li>
+        <li>Keputusan lanjut/tidak berbasis hasil uji — bukan asumsi</li>
+      </ul>
+    </div>
+
+    <div class="proj">
+      <div class="top"><div><h3>6 · Otomatisasi Operasional Internal</h3><div class="inst">Perusahaan ramping, overhead rendah</div></div><span class="chip on">Berjalan</span></div>
+      <ul>
+        <li>AI Personal Assistant (JENI) untuk rekap BizDev, produksi, HR/GA — kurangi jam kerja administratif</li>
+        <li>Engine AI Otomatisasi &amp; fast report dipakai internal dulu, matang, lalu dijual keluar</li>
+        <li>Setiap rupiah overhead yang dihemat = daya tahan lebih panjang di masa sulit</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="kpi-grid" style="margin-top:26px">
+    <div class="kpi good"><div class="label">Prinsip Bertahan</div><div class="value">Biaya Rendah</div><div class="note">Full AI menekan biaya produksi &amp; overhead</div></div>
+    <div class="kpi accent"><div class="label">Prinsip Tumbuh</div><div class="value">Recurring</div><div class="note">Produk &amp; langganan, bukan hanya project sekali jalan</div></div>
+    <div class="kpi"><div class="label">Prinsip Aman</div><div class="value">Diversifikasi</div><div class="note">Pemerintah + swasta + UMKM + produk + training</div></div>
+  </div>
+</section>
+
+<footer>
+  <b>Terima Kasih</b>
+  Reviu Triwulan II &amp; Rencana Triwulan III · Tim Nuriyanto — Tim Produksi PT. Mitra Sinerji Teknoindo · 2026
+</footer>
+
+</body>
+</html>

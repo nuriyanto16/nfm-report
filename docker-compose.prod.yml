@@ -1,0 +1,41 @@
+# Deploy produksi di VPS, di belakang nginx pada subpath /tools/report.
+# Port hanya di-bind ke localhost (127.0.0.1) agar tidak bentrok/terekspos;
+# nginx yang mem-proxy dari https://nfmtech.my.id/tools/report.
+#
+# Set kredensial via file .env di samping file ini (lihat .env.prod.example).
+services:
+  api:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      APP_USER: ${APP_USER}
+      APP_PASS: ${APP_PASS}
+      APP_SECRET: ${APP_SECRET}
+      TOKEN_TTL_HOURS: ${TOKEN_TTL_HOURS:-12}
+      CORS_ORIGINS: https://nfmtech.my.id
+      CACHE_TTL_SECONDS: ${CACHE_TTL_SECONDS:-300}
+      AUTH_STORE: /app/data/auth.json
+      PROJECT_LIST_PATH: /app/laporan/00. Project List MST 2026.xlsx
+      EVALUASI_DIR: /app/laporan
+    volumes:
+      - ./backend/app/config/sources.yaml:/app/app/config/sources.yaml:ro
+      # Store user & role (persisten antar-redeploy). Folder host ./data.
+      - ./data:/app/data
+      # Project management data & evaluasi documents
+      - ./LAPORAN:/app/laporan:ro
+    ports:
+      - "127.0.0.1:${API_PORT:-8077}:8000"
+
+  web:
+    build:
+      context: ./frontend
+      args:
+        NUXT_APP_BASE_URL: /tools/report/
+        NUXT_PUBLIC_API_BASE: /tools/report
+    restart: unless-stopped
+    environment:
+      NUXT_PUBLIC_API_BASE: /tools/report
+    depends_on:
+      - api
+    ports:
+      - "127.0.0.1:${WEB_PORT:-3077}:3000"

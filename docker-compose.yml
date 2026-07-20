@@ -1,0 +1,23 @@
+services:
+  api:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      BASIC_AUTH_USER: ${BASIC_AUTH_USER:-}
+      BASIC_AUTH_PASS: ${BASIC_AUTH_PASS:-}
+      CORS_ORIGINS: http://localhost:3000
+      CACHE_TTL_SECONDS: 300
+    volumes:
+      # Edit sumber data tanpa rebuild image.
+      - ./backend/app/config/sources.yaml:/app/app/config/sources.yaml:ro
+
+  web:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      # Diakses browser, jadi pakai URL publik api.
+      NUXT_PUBLIC_API_BASE: http://localhost:8000
+    depends_on:
+      - api

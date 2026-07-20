@@ -1,0 +1,58 @@
+# Daftar sumber data laporan. Tambah sumber baru = tambah satu entri di sini
+# (selama type-nya didukung adapter). Lihat app/adapters/.
+sources:
+  - id: simpel-nextgen-2026
+    name: "SUMMARY PEMELIHARAAN SIMPEL NEXTGEN 2026"
+    type: google_sheet
+    spreadsheet_id: "1T1dVSovHhNoyj74HPcOEr72rUu2wljpDZgvJQRMwEhg"
+    # Tab bulanan dikenali lewat pola ini (mis. "06. Juni 2026").
+    sheet_pattern: '^\d{2}\. .+ \d{4}$'
+    layout:
+      header_row: 3
+      data_start_row: 4
+      # Indeks kolom 0-based (A=0, B=1, ...).
+      columns:
+        "no": 0          # A  (dikutip: 'no' tanpa kutip = boolean di YAML)
+        issue: 1         # B
+        path_menu: 2     # C
+        tgl_request: 3   # D  TANGGAL REQUEST/ISSUE  (acuan periode default)
+        tgl_mulai: 4     # E
+        tgl_estimasi: 5  # F
+        tgl_selesai: 6   # G
+        request_by: 7    # H
+        pic: 8           # I
+        kategori: 9      # J
+        status: 10       # K
+        priority: 11     # L
+        status_deploy: 12 # M
+        last_update: 13  # N
+        keterangan: 15   # P
+      # Penanda section -> nama aplikasi/area.
+      section_markers:
+        "1. Pengujian": "Pengujian (SIMPEL)"
+        "2. Kalibrasi": "Kalibrasi"
+        "3. Mobile": "Mobile"
+        "4. Infra": "Infra"
+      # Berhenti parsing saat blok legacy non-SIMS dimulai (kemunculan KEDUA
+      # judul ini) agar tidak double-count CAT/ISR/SERENA/SIPUT/Seenow dll.
+      stop_markers:
+        - "CHANGE REQUEST (CR)/FEEDBACK USER"
+        - "BULAN DESEMBER 2025"
+      valid_status: ["Done", "Progress", "Hold", "Back Log", "To Do"]
+
+  - id: pemeliharaan-aplikasi-postel
+    name: "SUMMARY PEMELIHARAAN APLIKASI (POSTEL)"
+    type: google_sheet
+    spreadsheet_id: "1shi4Jy4Cg-Vnr4tJ1gNhdvjn2XiJa4wZuS5YpwLDRWY"
+    # Semua tab bulanan diawali "NN. " (mis. "06. Juni 2026", "01. Mei 2025").
+    sheet_pattern: '^\d{2}\. '
+    layout:
+      # Mode deteksi kolom otomatis: peta kolom dibaca dari baris header tiap
+      # tab. Mendukung 2 layout berbeda (2025 vs 2026) dalam 1 spreadsheet.
+      detect_columns: true
+      header_row: 3
+      # aplikasi/area diambil dari penanda section "N. Nama Aplikasi"
+      # (angka prefix otomatis dibuang). Tidak perlu daftar manual.
+      stop_markers:
+        - "CHANGE REQUEST (CR)/FEEDBACK USER"
+      valid_status: ["Done", "Progress", "Hold", "Back Log", "To Do"]
