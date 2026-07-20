@@ -275,8 +275,8 @@ const content = computed(() => {
 
 <style scoped>
 .info-rail-card {
-  background: var(--panel, #161b22);
-  border: 1px solid var(--border, rgba(48, 66, 100, 0.55));
+  background: var(--panel);
+  border: 1px solid var(--border);
   border-radius: var(--radius, 14px);
   padding: 24px;
   box-shadow: var(--shadow-sm);
@@ -299,9 +299,9 @@ const content = computed(() => {
   width: 36px;
   height: 36px;
   border-radius: var(--radius-sm, 9px);
-  background: rgba(56, 189, 248, 0.12);
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  color: var(--cyan, #38bdf8);
+  background: var(--cyan-glass);
+  border: 1px solid var(--border-soft);
+  color: var(--cyan);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -317,13 +317,13 @@ const content = computed(() => {
   margin: 0;
   font-size: 15px;
   font-weight: 700;
-  color: var(--text, #f1f5f9);
+  color: var(--text);
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .rail-title-group span {
   font-size: 11px;
-  color: var(--cyan, #38bdf8);
+  color: var(--cyan);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -331,12 +331,12 @@ const content = computed(() => {
 
 .rail-divider {
   height: 1px;
-  background: linear-gradient(90deg, rgba(56, 189, 248, 0.3) 0%, rgba(56, 189, 248, 0.05) 100%);
+  background: linear-gradient(90deg, var(--border) 0%, transparent 100%);
 }
 
 .live-stats-box {
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(56, 189, 248, 0.2);
+  background: var(--bg-2);
+  border: 1px solid var(--border-soft);
   border-radius: 10px;
   padding: 12px;
 }
@@ -347,22 +347,22 @@ const content = computed(() => {
   margin-top: 6px;
 }
 .mini-kpi {
-  background: #0f172a;
-  border: 1px solid rgba(56, 189, 248, 0.2);
+  background: var(--bg-3);
+  border: 1px solid var(--border-soft);
   border-radius: 6px;
   padding: 6px 10px;
   display: flex;
   flex-direction: column;
 }
-.mini-kpi span { font-size: 10px; color: var(--text-dim, #94a3b8); font-weight: 600; text-transform: uppercase; }
-.mini-kpi strong { font-size: 16px; color: #ffffff; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif; }
+.mini-kpi span { font-size: 10px; color: var(--text-dim); font-weight: 600; text-transform: uppercase; }
+.mini-kpi strong { font-size: 16px; color: var(--text); font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif; }
 .mini-kpi.green strong { color: #22c55e; }
-.mini-kpi.cyan strong { color: #38bdf8; }
+.mini-kpi.cyan strong { color: var(--cyan); }
 .mini-kpi.red strong { color: #f87171; }
 
 .active-filter-box {
-  background: rgba(56, 189, 248, 0.12);
-  border: 1px solid rgba(56, 189, 248, 0.3);
+  background: var(--cyan-glass);
+  border: 1px solid var(--border-soft);
   border-radius: 8px;
   padding: 8px 12px;
 }
@@ -372,10 +372,10 @@ const content = computed(() => {
   align-items: center;
   font-size: 11.5px;
   font-weight: 700;
-  color: var(--cyan, #38bdf8);
+  color: var(--cyan);
 }
 .count-tag {
-  background: var(--cyan, #38bdf8);
+  background: var(--cyan);
   color: #0a0e17;
   font-size: 10px;
   padding: 2px 7px;
@@ -386,14 +386,14 @@ const content = computed(() => {
   margin: 0;
   font-size: 12.5px;
   line-height: 1.6;
-  color: var(--text-sub, #cbd5e1);
+  color: var(--text-sub);
 }
 
 .rail-sub-title {
   margin: 0 0 8px 0;
   font-size: 11.5px;
   font-weight: 700;
-  color: var(--cyan, #38bdf8);
+  color: var(--cyan);
   font-family: 'Plus Jakarta Sans', sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -410,11 +410,11 @@ const content = computed(() => {
 .rail-tips-list li {
   font-size: 12px;
   line-height: 1.5;
-  color: var(--text-sub, #cbd5e1);
+  color: var(--text-sub);
 }
 
 .rail-tips-list li::marker {
-  color: var(--cyan, #38bdf8);
+  color: var(--cyan);
 }
 
 .rail-legend-grid {
@@ -428,7 +428,7 @@ const content = computed(() => {
   align-items: center;
   gap: 8px;
   font-size: 12px;
-  color: var(--text, #f1f5f9);
+  color: var(--text);
   font-weight: 600;
 }
 
@@ -456,15 +456,15 @@ const content = computed(() => {
 
 .rail-extra-list li {
   font-size: 11.5px;
-  color: var(--text-sub, #cbd5e1);
+  color: var(--text-sub);
   padding: 6px 10px;
-  background: rgba(30, 41, 59, 0.6);
-  border-radius: var(--radius-sm, 9px);
-  border-left: 3px solid var(--cyan, #38bdf8);
+  background: var(--bg-2);
+  border-radius: var(--radius-sm, 99px);
+  border-left: 3px solid var(--cyan);
 }
 
 .sys-box {
-  background: rgba(15, 23, 42, 0.4);
+  background: var(--bg-2);
   border: 1px solid var(--border-soft);
   border-radius: 8px;
   padding: 10px;
@@ -479,7 +479,7 @@ const content = computed(() => {
   align-items: center;
   gap: 8px;
   font-size: 11.5px;
-  color: var(--text-sub, #cbd5e1);
+  color: var(--text-sub);
   font-weight: 500;
 }
 .sys-dot {
@@ -493,11 +493,11 @@ const content = computed(() => {
 .rail-footer {
   margin-top: auto;
   padding-top: 14px;
-  border-top: 1px solid var(--border-soft, rgba(48, 66, 100, 0.28));
+  border-top: 1px solid var(--border-soft);
   display: flex;
   justify-content: space-between;
   font-size: 10px;
-  color: var(--text-dim, #94a3b8);
+  color: var(--text-dim);
   font-weight: 600;
   letter-spacing: 0.05em;
 }
