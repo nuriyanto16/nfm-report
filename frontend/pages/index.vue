@@ -217,17 +217,74 @@ const hoveredStatus = ref<string | null>(null);
     <!-- Error Banner -->
     <div v-if="error" class="error">{{ error }}</div>
 
-    <!-- Skeleton Loader -->
+    <!-- ============================================================
+         SKELETON LOADER UNTUK SELURUH PANEL DASHBOARD
+         ============================================================ -->
     <div v-if="loading" class="skel-wrap">
-      <div class="skel-cards">
-        <div v-for="i in 4" :key="i" class="skel skel-card" />
+      <!-- 1. Skeleton Top KPI Bar (5 cards) -->
+      <div class="dash-kpi-grid">
+        <div v-for="i in 5" :key="i" class="kpi-card skel-card">
+          <div class="skel skel-icon" />
+          <div class="skel-content">
+            <div class="skel skel-line sm" />
+            <div class="skel skel-line lg" />
+            <div class="skel skel-line xs" />
+          </div>
+        </div>
       </div>
-      <div class="skel-grid">
-        <div class="skel skel-chart" />
-        <div class="skel skel-chart" />
+
+      <!-- 2. Skeleton Charts Grid (2 panels) -->
+      <div class="dash-charts-grid">
+        <div class="panel skel-panel">
+          <div class="skel skel-title" />
+          <div class="skel-donut-body">
+            <div class="skel skel-circle" />
+            <div class="skel-legend-lines">
+              <div v-for="i in 5" :key="i" class="skel skel-line md" />
+            </div>
+          </div>
+        </div>
+
+        <div class="panel skel-panel">
+          <div class="skel skel-title" />
+          <div class="skel-bars-body">
+            <div v-for="i in 4" :key="i" class="skel-bar-item">
+              <div class="skel skel-line sm" />
+              <div class="skel skel-bar" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Skeleton PIC Dual Hub 2-Column Grid -->
+      <div class="pic-dual-grid">
+        <div class="panel skel-panel">
+          <div class="skel skel-title" />
+          <div class="skel-pic-cards">
+            <div v-for="i in 4" :key="i" class="skel skel-pic-card" />
+          </div>
+        </div>
+
+        <div class="panel skel-panel">
+          <div class="skel skel-title" />
+          <div class="skel-table">
+            <div class="skel skel-row head" />
+            <div v-for="i in 5" :key="i" class="skel skel-row" />
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Skeleton Focus Items Table -->
+      <div class="panel skel-panel">
+        <div class="skel skel-title" />
+        <div class="skel-table">
+          <div class="skel skel-row head" />
+          <div v-for="i in 4" :key="i" class="skel skel-row" />
+        </div>
       </div>
     </div>
 
+    <!-- MAIN DASHBOARD CONTENT -->
     <template v-else>
       <!-- KPI Top Metrics Bar -->
       <div class="dash-kpi-grid">
@@ -350,7 +407,7 @@ const hoveredStatus = ref<string | null>(null);
       </div>
 
       <!-- ============================================================
-           EXECUTIVE PIC MONITORING 2-COLUMN DUAL PANEL (1 BARIS SEJAJAR)
+           EXECUTIVE PIC MONITORING DUAL 2-COLUMN GRID (1 BARIS SEJAJAR)
            ============================================================ -->
       <div class="pic-dual-grid">
         <!-- Kolom 1: Monitoring Performa & Beban Kerja per PIC (Cards) -->
@@ -563,6 +620,55 @@ const hoveredStatus = ref<string | null>(null);
   animation: spin 1s linear infinite;
 }
 @keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* ============================================================
+   SKELETON LOADER STYLES
+   ============================================================ */
+.skel-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.skel-panel {
+  padding: 24px;
+  background: var(--panel, #1e293b);
+  border: 1px solid var(--border-soft, rgba(56, 189, 248, 0.15));
+  border-radius: var(--radius, 14px);
+}
+.skel {
+  background: linear-gradient(90deg, rgba(30, 41, 59, 0.6) 25%, rgba(56, 189, 248, 0.14) 50%, rgba(30, 41, 59, 0.6) 75%);
+  background-size: 200% 100%;
+  animation: skelPulse 1.5s infinite ease-in-out;
+  border-radius: 6px;
+}
+@keyframes skelPulse {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skel-icon { width: 44px; height: 44px; border-radius: 12px; }
+.skel-content { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.skel-line { height: 12px; }
+.skel-line.xs { width: 40%; height: 10px; }
+.skel-line.sm { width: 60%; }
+.skel-line.md { width: 85%; height: 16px; }
+.skel-line.lg { width: 70%; height: 24px; }
+.skel-title { width: 40%; height: 20px; margin-bottom: 20px; }
+
+.skel-donut-body { display: flex; align-items: center; gap: 28px; }
+.skel-circle { width: 140px; height: 140px; border-radius: 50%; flex-shrink: 0; }
+.skel-legend-lines { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+
+.skel-bars-body { display: flex; flex-direction: column; gap: 14px; }
+.skel-bar-item { display: flex; flex-direction: column; gap: 6px; }
+.skel-bar { height: 12px; border-radius: 999px; }
+
+.skel-pic-cards { display: flex; flex-direction: column; gap: 12px; }
+.skel-pic-card { height: 86px; border-radius: 12px; }
+
+.skel-table { display: flex; flex-direction: column; gap: 8px; }
+.skel-row { height: 36px; border-radius: 8px; }
+.skel-row.head { height: 40px; background: rgba(56, 189, 248, 0.15); }
 
 /* Top KPI Grid */
 .dash-kpi-grid {
