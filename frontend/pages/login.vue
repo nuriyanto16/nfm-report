@@ -102,7 +102,7 @@ async function onSubmit() {
 
       <div class="login2-instansi">
         <span class="status-indicator">🟢 Server Active &amp; Live Sync</span>
-        <span>FAST REPORT v1.1.0 · BBPPT 2026</span>
+        <span>FAST REPORT v1.1.0</span>
       </div>
     </section>
 
@@ -160,7 +160,7 @@ async function onSubmit() {
         </form>
 
         <div class="login2-foot">
-          <span>Sistem Pelaporan Multi-Sumber · BBPPT 2026</span>
+          <span>Sistem Pelaporan Multi-Sumber</span>
         </div>
       </div>
     </section>
