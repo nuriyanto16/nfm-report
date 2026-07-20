@@ -350,7 +350,7 @@ const hoveredStatus = ref<string | null>(null);
       </div>
 
       <!-- ============================================================
-           EXECUTIVE MONITORING PER PIC (PANEL ELEGAN & INFORMATIF)
+           EXECUTIVE MONITORING PER PIC (STRICT 2 COLUMNS DENSE HUB)
            ============================================================ -->
       <div class="panel pic-monitoring-panel">
         <div class="row-between pic-panel-head">
@@ -365,45 +365,51 @@ const hoveredStatus = ref<string | null>(null);
           </div>
         </div>
 
-        <!-- PIC Cards Grid -->
+        <!-- PIC Cards Grid (Strict 2 Equal Columns) -->
         <div class="pic-cards-grid">
           <div v-for="p in picDetailedData" :key="p.pic" class="pic-exec-card">
-            <div class="pic-card-top">
+            <!-- Left Block: Avatar & Name -->
+            <div class="pic-card-left">
               <div class="pic-avatar-badge">{{ p.initials }}</div>
               <div class="pic-identity">
-                <h4>{{ p.pic }}</h4>
-                <span class="pic-task-count">{{ p.total }} Total Task</span>
-              </div>
-              <div class="pic-status-pill" :class="p.performanceClass">
-                {{ p.performanceLabel }}
+                <div class="pic-name-row">
+                  <h4>{{ p.pic }}</h4>
+                  <span class="pic-status-pill" :class="p.performanceClass">{{ p.performanceLabel }}</span>
+                </div>
+                <span class="pic-task-count">{{ p.total }} Total Task Assigned</span>
               </div>
             </div>
 
-            <div class="pic-rate-row">
-              <span>Solvability Rate</span>
-              <strong>{{ p.rate }}% Solved</strong>
-            </div>
-            <div class="pic-progress-bar">
-              <span class="bar-done" :style="{ width: p.rate + '%' }" />
+            <!-- Middle Block: Rate & Progress -->
+            <div class="pic-card-mid">
+              <div class="pic-rate-row">
+                <span>Solvability Rate</span>
+                <strong>{{ p.rate }}% Solved ({{ p.done }}/{{ p.total }})</strong>
+              </div>
+              <div class="pic-progress-bar">
+                <span class="bar-done" :style="{ width: p.rate + '%' }" />
+              </div>
             </div>
 
-            <!-- Mini Metric Pills -->
-            <div class="pic-mini-metrics">
-              <div class="mini-m green">
-                <span>Done</span>
-                <strong>{{ p.done }}</strong>
-              </div>
-              <div class="mini-m cyan">
-                <span>Progress</span>
-                <strong>{{ p.progress }}</strong>
-              </div>
-              <div class="mini-m red" :class="{ alert: p.hold > 0 }">
-                <span>Hold</span>
-                <strong>{{ p.hold }}</strong>
-              </div>
-              <div class="mini-m slate">
-                <span>To Do</span>
-                <strong>{{ p.todo }}</strong>
+            <!-- Right Block: 4 Mini Metrics (2x2) -->
+            <div class="pic-card-right">
+              <div class="pic-mini-metrics">
+                <div class="mini-m green" title="Done">
+                  <span>Done</span>
+                  <strong>{{ p.done }}</strong>
+                </div>
+                <div class="mini-m cyan" title="Progress">
+                  <span>Prog</span>
+                  <strong>{{ p.progress }}</strong>
+                </div>
+                <div class="mini-m red" :class="{ alert: p.hold > 0 }" title="Hold">
+                  <span>Hold</span>
+                  <strong>{{ p.hold }}</strong>
+                </div>
+                <div class="mini-m slate" title="To Do / Backlog">
+                  <span>ToDo</span>
+                  <strong>{{ p.todo + p.backlog }}</strong>
+                </div>
               </div>
             </div>
           </div>
@@ -814,7 +820,7 @@ const hoveredStatus = ref<string | null>(null);
 }
 
 /* ============================================================
-   EXECUTIVE PIC MONITORING PANEL STYLES
+   EXECUTIVE PIC MONITORING PANEL STYLES (STRICT 2 COLUMNS DENSE HUB)
    ============================================================ */
 .pic-monitoring-panel {
   border-left: 3px solid var(--cyan, #38bdf8);
@@ -852,29 +858,38 @@ const hoveredStatus = ref<string | null>(null);
 
 .pic-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
   margin-bottom: 24px;
 }
+@media (max-width: 1100px) {
+  .pic-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .pic-exec-card {
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(56, 189, 248, 0.22);
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(56, 189, 248, 0.25);
   border-radius: 12px;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: 1.4fr 1.2fr 1fr;
+  align-items: center;
+  gap: 16px;
   transition: all .2s ease;
 }
 .pic-exec-card:hover {
-  border-color: rgba(56, 189, 248, 0.45);
+  border-color: rgba(56, 189, 248, 0.5);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
 }
-.pic-card-top {
+
+.pic-card-left {
   display: flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
 }
 .pic-avatar-badge {
   width: 40px;
@@ -894,7 +909,13 @@ const hoveredStatus = ref<string | null>(null);
   flex: 1;
   min-width: 0;
 }
-.pic-identity h4 {
+.pic-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.pic-name-row h4 {
   margin: 0;
   font-size: 14px;
   font-weight: 700;
@@ -904,8 +925,10 @@ const hoveredStatus = ref<string | null>(null);
   text-overflow: ellipsis;
 }
 .pic-task-count {
-  font-size: 11.5px;
-  color: var(--text-sub);
+  font-size: 11px;
+  color: var(--text-dim, #94a3b8);
+  display: block;
+  margin-top: 2px;
 }
 
 .pic-status-pill {
@@ -921,13 +944,22 @@ const hoveredStatus = ref<string | null>(null);
 .perf-ok { background: rgba(56, 189, 248, 0.18); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35); }
 .perf-warning { background: rgba(248, 113, 113, 0.18); color: #f87171; border: 1px solid rgba(248, 113, 113, 0.35); }
 
+.pic-card-mid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
 .pic-rate-row {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
-  color: var(--text-sub);
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-sub, #cbd5e1);
 }
-.pic-rate-row strong { color: var(--cyan); font-weight: 700; }
+.pic-rate-row strong {
+  color: var(--cyan, #38bdf8);
+  font-weight: 700;
+}
 .pic-progress-bar {
   height: 6px;
   background: #0f172a;
@@ -943,22 +975,28 @@ const hoveredStatus = ref<string | null>(null);
   transition: width .5s ease;
 }
 
+.pic-card-right {
+  display: flex;
+  justify-content: flex-end;
+}
 .pic-mini-metrics {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+  width: 100%;
 }
 .mini-m {
   background: #0f172a;
   border: 1px solid var(--border-soft);
   border-radius: 6px;
-  padding: 6px 4px;
+  padding: 4px 6px;
   text-align: center;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
-.mini-m span { font-size: 9.5px; color: var(--text-dim); text-transform: uppercase; font-weight: 600; }
-.mini-m strong { font-size: 13px; color: #ffffff; font-weight: 800; }
+.mini-m span { font-size: 9px; color: var(--text-dim); text-transform: uppercase; font-weight: 600; line-height: 1; }
+.mini-m strong { font-size: 12px; color: #ffffff; font-weight: 800; line-height: 1.2; }
 .mini-m.green strong { color: #22c55e; }
 .mini-m.cyan strong { color: #38bdf8; }
 .mini-m.red strong { color: #f87171; }
