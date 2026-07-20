@@ -31,7 +31,7 @@ async function loadDashboardData() {
     }
 
     if (selectedSource.value) {
-      const reportRes = await apiGet<any>(`/api/report?source=${encodeURIComponent(selectedSource.value)}&period_mode=all`);
+      const reportRes = await apiGet<any>(`/api/report?source=${encodeURIComponent(selectedSource.value)}&period=all`);
       summary.value = reportRes.summary || null;
       rows.value = reportRes.rows || [];
     }
