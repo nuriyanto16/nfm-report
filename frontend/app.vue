@@ -12,6 +12,22 @@ onMounted(() => {
 
 const showChrome = computed(() => route.path !== "/login");
 const collapsed = ref(false);
+const mobileMenuOpen = ref(false);
+
+watch(
+  () => route.path,
+  () => {
+    mobileMenuOpen.value = false;
+  }
+);
+
+function toggleMenu() {
+  if (typeof window !== "undefined" && window.innerWidth < 1024) {
+    mobileMenuOpen.value = !mobileMenuOpen.value;
+  } else {
+    collapsed.value = !collapsed.value;
+  }
+}
 
 // Menu dikelompokkan; tiap item difilter berdasarkan hak akses (menu key).
 const groups = [
@@ -59,7 +75,12 @@ const visibleGroups = computed(() =>
 </script>
 
 <template>
-  <div v-if="showChrome" class="layout" :class="{ collapsed }">
+  <div v-if="showChrome" class="layout" :class="{ collapsed, 'mobile-open': mobileMenuOpen }">
+    <div
+      v-if="mobileMenuOpen"
+      class="sidebar-backdrop"
+      @click="mobileMenuOpen = false"
+    />
     <aside class="sidebar">
       <div class="sb-brand">
         <div class="sb-logo">
@@ -74,7 +95,7 @@ const visibleGroups = computed(() =>
       <nav class="sb-nav">
         <template v-for="g in visibleGroups" :key="g.section">
           <p class="sb-section">{{ g.section }}</p>
-          <NuxtLink v-for="m in g.items" :key="m.to" :to="m.to" class="sb-link">
+          <NuxtLink v-for="m in g.items" :key="m.to" :to="m.to" class="sb-link" @click="mobileMenuOpen = false">
             <span class="sb-icon"><UiIcon :name="m.iconName" :size="18" /></span>
             <span class="sb-label">{{ m.label }}</span>
           </NuxtLink>
@@ -82,7 +103,7 @@ const visibleGroups = computed(() =>
       </nav>
 
       <div class="sb-foot">
-        <NuxtLink to="/profil" class="sb-link sb-profile">
+        <NuxtLink to="/profil" class="sb-link sb-profile" @click="mobileMenuOpen = false">
           <span class="sb-icon"><UiIcon name="profil" :size="18" /></span>
           <span class="sb-label">Profil &amp; Password</span>
         </NuxtLink>
@@ -103,7 +124,7 @@ const visibleGroups = computed(() =>
     <div class="main-area">
       <header class="topbar">
         <div class="topbar-left">
-          <button class="collapse-btn" @click="collapsed = !collapsed" title="Sembunyikan menu">
+          <button class="collapse-btn" @click="toggleMenu" title="Menu Navigation">
             <UiIcon name="filter" :size="16" />
           </button>
           <h1 class="topbar-title">FAST REPORT — Penarikan Laporan</h1>
