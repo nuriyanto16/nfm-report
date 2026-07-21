@@ -44,8 +44,8 @@ sources:
     name: "SUMMARY PEMELIHARAAN APLIKASI (POSTEL)"
     type: google_sheet
     spreadsheet_id: "1shi4Jy4Cg-Vnr4tJ1gNhdvjn2XiJa4wZuS5YpwLDRWY"
-    # Semua tab bulanan diawali "NN. " (mis. "06. Juni 2026", "01. Mei 2025").
-    sheet_pattern: '^\d{2}\. '
+    # Hanya tab bulanan 2026 (mis. "01. Jan 2026", "06. Juni 2026"). Tab 2025 diabaikan.
+    sheet_pattern: '^\d{2}\. .* 2026$'
     layout:
       # Mode deteksi kolom otomatis: peta kolom dibaca dari baris header tiap
       # tab. Mendukung 2 layout berbeda (2025 vs 2026) dalam 1 spreadsheet.
